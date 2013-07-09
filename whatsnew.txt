@@ -1,0 +1,9 @@
+WHAT'S NEW IN VER2.0
+-supports logging in and logging out
+-usernames: Luffy, Apple, jojo
+-password: mypass (same for all users)
+
+going to implement:
+.registration functions
+.functions to calculate values for graphs
+.pie charts and line graphs to represent data (unanimated)
