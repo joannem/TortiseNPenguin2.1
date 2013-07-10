@@ -14,13 +14,17 @@ function displayPageHeader() {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<style type="text/css">
-		iframe {
-			width: 740px;
-			height: 390px;
-			border: 1px solid #DEDEDE;
-		}
-		</style>
+		<!--jplot-->
+		<link rel="stylesheet" type="text/css" href="graphs-jqplot/jqplot/jquery.jqplot.min.css" />
+		<script src="graphs-jqplot/jqplot/jquery.min.js" ></script>
+		<script src="graphs-jqplot/jqplot/jquery.jqplot.min.js" ></script>
+		<script src="graphs-jqplot/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+		<script type="text/javascript" src="graphs-jqplot/jqplot/plugins/jqplot.cursor.min.js"></script>
+		<script type="text/javascript" src="graphs-jqplot/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+		<script src="graphs/line.js" ></script>
+		<script src="graphs/pie.js" ></script>
+
+		
 	</head>
 	<body>
 		<!-- Standard Header for Every Page -->
@@ -277,7 +281,7 @@ function displayPageFooter() { ?>
 				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-				<script src="http://code.jquery.com/jquery.js"></script>
+				<!--<script src="http://code.jquery.com/jquery.min.js"></script>-->
 				<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>

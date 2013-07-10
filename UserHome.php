@@ -1,6 +1,7 @@
 <?php
+//require_once("view_overview.php");
+require_once("view_overview_noTabs.php");
 require_once("view_expenditures.php");
-require_once("view_overview.php");
 require_once("view_budget.php");
 require_once("view_income.php");
 
@@ -26,7 +27,8 @@ $view = isset($_GET["view"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["view"]) : 
 			if($view == "expenditure") {
 				displayExpenditures();
 			} elseif($view == "overview") {
-				displayOverview();
+				//displayOverview();
+				displayOverview_noT();
 			} elseif($view == "budget") {
 				displayBudget();
 			} elseif ($view == "income") {

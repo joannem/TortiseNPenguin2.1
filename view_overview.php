@@ -1,12 +1,11 @@
 <?php
 
 require_once("common.inc.php");
-require_once("config.php");
-require_once("Expenditure.class.php");
-require_once("Income.class.php");
+require_once("graphs/categories.php");
 
 function displayOverview() {
 	?>
+
 	<h2>Overview</h2>
 	
 	<div class="tabbable tabs-left"> <!-- Only required for left/right tabs -->
@@ -20,10 +19,18 @@ function displayOverview() {
 			<!--Start Overall-->
 			<div class="tab-pane active" id="tab1">
 				<h3>Overall</h3>
-				<p>All exenditures over time:</p>
-				<iframe src="graphs/line.html" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-				<p>All expenditures by category:</p>
-				<iframe src="graphs/pie.html" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+				<script type="text/javascript">
+					var data = <?php getPieData() ?>;
+				//	document.write("data: <br>");
+				//	document.write(data);
+				</script>
+				<p><b>All exenditures over time:</b></p>
+				<div id="chart1" style="height: 300px; width: 500px; position: relative;" class="jqplot-target"></div>
+				<br>
+				<p><b>All expenditures by category:</b></p>
+				<button onclick=drawChart_O(data)>Show Pie Chart</button>
+				<!--<script type="text/javascript"> drawChart(data); </script>-->
+				<div id="OvPieChartDivId" style="margin-top:20px; margin-left:20px; width:600px; height:300px;"></div>
 			</div> <!--End Overall-->
 
 			<!--Start Category-->
@@ -32,7 +39,7 @@ function displayOverview() {
 					<form class="form-inline" action="UserHome.php?view=overview" method="post">
 						<b>Filter: </b>show expenditures between
 							<!--start Select From: -->
-							<select class="span2" name="from">
+							<select class="span2" name="from" id="sel_From">
 								<option value='All'>All</option>
 								<?php //UserHome.php?view=overview
 								for ($year=2011; $year < 2014; $year++) { 
@@ -44,7 +51,7 @@ function displayOverview() {
 							</select> <!--start Select From: -->
 							and 
 							<!--start Select To: -->
-							<select class="span2" name="to">
+							<select class="span2" name="to" id="sel_To">
 								<option value='All'>All</option>
 								<?php 
 								for ($year=2011; $year < 2014; $year++) { 
@@ -55,10 +62,11 @@ function displayOverview() {
 								} ?>
 							</select><!--start Select To: -->.
 							<!--"filter" submit button-->
-							<input class="btn btn-small" type="submit" value="Submit" style="margin-left: 5px;">
-					</form>
-					<iframe src="graphs/pie.html" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-				
+							<button onclick=drawChart(data)>Show Graph</button>
+							<button onclick=processSelectAJAX(document.getElementById("sel_From").options[document.getElementById("sel_From").selectedIndex].value, document.getElementById("sel_To").options[document.getElementById("sel_To").selectedIndex].value)>Process options</button>
+					</form>	
+
+					<div id="PieChartDivId" style="margin-top:20px; margin-left:20px; width:600px; height:300px;"></div>
 			</div><!--End Category-->
 
 			<!--Start over time-->
