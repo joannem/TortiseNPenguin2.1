@@ -23,7 +23,7 @@ function processSelectAJAX(from, to) {
     xmlhttp.onreadystatechange=function() {
       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
         var php_data = xmlhttp.responseText;
-       // console.log(php_data);
+        console.log(php_data);
         var js_data = $.parseJSON(php_data);
         //console.log(js_data);
         drawChart(js_data);
@@ -36,6 +36,11 @@ function processSelectAJAX(from, to) {
 }
 
 function drawChart_O(data) {
+  if(data == "") {
+    console.log("no data!");
+    //data.push((("No Data Found", 100)));
+    var data = [[["No Data Found", 100]]]
+  }
 
   for(i=0; i<data[0].length; i++) {
    data[0][i][1] = parseFloat(data[0][i][1]);
@@ -79,7 +84,7 @@ console.log("in drawChart()");
     },
     legend: { show:true, location: 'e' }
   };
-   
+  $('#PieChartDivId').empty();
   $.jqplot('PieChartDivId', data, options);
 }
 

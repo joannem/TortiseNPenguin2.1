@@ -1,6 +1,8 @@
 <?php require_once "../common.inc.php";
+checkLogin();
 
-$array = array('memberId'=> 1);
+$id = $_SESSION["member"]->getValue("id");
+$array = array('memberId'=> $id);
 $expenditure = new Expenditure($array);
 
 $from = isset($_GET["from"]) ? $_GET["from"] : "All";

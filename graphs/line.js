@@ -1,76 +1,171 @@
-$(document).ready(function(){
-  var goog = [["6/22/2009 16:00:00",425.32],
-  ["6/8/2009 16:00:00",424.84],
-  ["5/26/2009 16:00:00",417.23],
-  ["5/11/2009 16:00:00",390],
-  ["4/27/2009 16:00:00",393.69],
-  ["4/13/2009 16:00:00",392.24],
-  ["3/30/2009 16:00:00",369.78],
-  ["3/16/2009 16:00:00",330.16],
-  ["3/2/2009 16:00:00",308.57],
-  ["2/17/2009 16:00:00",346.45],
-  ["2/2/2009 16:00:00",371.28],
-  ["1/20/2009 16:00:00",324.7],
-  ["1/5/2009 16:00:00",315.07],
-  ["12/22/2008 16:00:00",300.36],
-  ["12/8/2008 16:00:00",315.76],
-  ["11/24/2008 16:00:00",292.96],
-  ["11/10/2008 16:00:00",310.02],
-  ["10/27/2008 16:00:00",359.36],
-  ["10/13/2008 16:00:00",372.54],
-  ["9/29/2008 16:00:00",386.91],
-  ["9/15/2008 16:00:00",449.15],
-  ["9/2/2008 16:00:00",444.25],
-  ["8/25/2008 16:00:00",463.29],
-  ["8/11/2008 16:00:00",510.15],
-  ["7/28/2008 16:00:00",467.86],
-  ["7/14/2008 16:00:00",481.32],
-  ["6/30/2008 16:00:00",537],
-  ["6/16/2008 16:00:00",546.43],
-  ["6/2/2008 16:00:00",567],
-  ["5/19/2008 16:00:00",544.62],
-  ["5/5/2008 16:00:00",573.2],
-  ["4/21/2008 16:00:00",544.06],
-  ["4/7/2008 16:00:00",457.45],
-  ["3/24/2008 16:00:00",438.08],
-  ["3/10/2008 16:00:00",437.92],
-  ["2/25/2008 16:00:00",471.18],
-  ["2/11/2008 16:00:00",529.64],
-  ["1/28/2008 16:00:00",515.9],
-  ["1/14/2008 16:00:00",600.25],
-  ["12/31/2007 16:00:00",657],
-  ["12/17/2007 16:00:00",696.69],
-  ["12/3/2007 16:00:00",714.87],
-  ["11/19/2007 16:00:00",676.7],
-  ["11/5/2007 16:00:00",663.97],
-  ["10/22/2007 16:00:00",674.6],
-  ["10/8/2007 16:00:00",637.39],
-  ["9/24/2007 16:00:00",567.27],
-  ["9/10/2007 16:00:00",528.75],
-  ["8/27/2007 16:00:00",515.25]];
-  var plot1 = $.jqplot('chart1', [goog], { 
-    title: 'Google, Inc.', 
-    series: [{ 
-      label: 'Google, Inc.', 
-      neighborThreshold: -1 
-    }], 
-    axes: { 
-      xaxis: { 
-        renderer: $.jqplot.DateAxisRenderer,
-        min:'August 1, 2007 16:00:00', 
-        tickInterval: '4 months', 
-        tickOptions:{formatString:'%Y/%#m/%#d'} 
-      }, 
-      yaxis: { 
-        tickOptions:{formatString:'$%.2f'} 
-      } 
-    }, 
-    cursor:{ 
-      show: true,
-      zoom:true, 
-      showTooltip:false
+function convertData(data) {
+ // console.log(data.length);
+  for (var i = 0; i < data.length; i++) {
+   // console.log(data[i][1]);
+    if (data[i][1] == null) {
+      //console.log("null found");
+      data[i][1] = 0.0; 
     } 
-  });
+    else {
+      //console.log("data found");
+      data[i][1] = parseFloat(data[i][1]);
+    }
+  }
+}
 
-  $('.button-reset').click(function() { plot1.resetZoom() });
-});
+function printData(categoriesData, emptyArr) {
+  console.log(categoriesData);
+}
+
+function processCheckC(categoriesData, categories, emptyArr) {
+ // console.log("empty array: ");
+  console.log(emptyArr);
+  console.log(categoriesData);
+  console.log(categories);
+  for (var i=0; i<categories.length; i++) {
+    if(!document.getElementById(categories[i]).checked)
+      console.log(categories[i] + " is not checked");
+      categoriesData[i] = emptyArr;
+  }
+  console.log("end of convertion: ");
+  console.log(categoriesData);
+}
+
+function processCheck(expenditures, incomes, savings, emptyArr) {
+  if(!document.getElementById("check_Ex").checked)
+    expenditures = emptyArr;
+  if(!document.getElementById("check_In").checked)
+    incomes = emptyArr;
+  if(!document.getElementById("check_Sav").checked)
+    savings = emptyArr;
+
+  drawOLine(expenditures, incomes, savings);
+}
+
+function drawCLine(categoriesData, categories){
+
+  NoOfCategories = categories.length;
+  for(i=0; i<NoOfCategories; i++) {
+    for(j=0; j<categories[i].length; j++) {
+      if (categories[i][j][1] == null) {
+        categories[i][j][1] = 0.0; 
+      } 
+      else {
+        categories[i][j][1] = parseFloat(categories[i][j][1]);
+      }
+    }
+  }
+  //console.log(categories);
+  $('#OvLineGraph').empty();
+  var plot2 = $.jqplot('OvLineGraph', [categories, incomes, savings], { 
+    title:'Test', 
+    seriesDefaults: {
+      showMarker:false
+    }, 
+    series:[
+    {
+      label: 'Expenditures'
+    },
+    {
+      yaxis:'y2axis',
+      label: 'Incomes'
+    }, 
+    {
+      yaxis:'y3axis',
+      label: 'Savings'
+    }
+    ], 
+    cursor: {
+      show: true,
+      tooltipLocation:'sw', 
+      zoom:true
+    }, 
+    axesDefaults:{useSeriesColor: true}, 
+    axes:{
+      xaxis:{
+        renderer: $.jqplot.DateAxisRenderer,
+        min:'March 1, 2013 00:00:00', 
+        tickInterval: '1 month', 
+        tickOptions:{formatString:'%Y/%#m/%#d'}
+      }, 
+      yaxis:{},  
+      y2axis:{
+        numberTicks:9, 
+        tickOptions:{showGridline:false}
+      }, 
+      y3axis:{}
+    }, 
+    legend: {
+          show: true
+    }
+  });
+}
+
+function drawOLine(expenditures, incomes, savings){
+
+  length = expenditures.length;
+  for(i=0; i<length; i++) {
+    if (expenditures[i][1] == null) {
+      expenditures[i][1] = 0.0; 
+    } 
+    else {
+      expenditures[i][1] = parseFloat(expenditures[i][1]);
+    }
+    if (incomes[i][1] == null) {
+      incomes[i][1] = 0.0; 
+    }
+    else {
+      incomes[i][1] = parseFloat(incomes[i][1]);
+    }
+    if (savings[i][1] == null) {
+      savings[i][1] = 0.0; 
+    } 
+    else {
+      savings[i][1] = parseFloat(savings[i][1]);
+    }
+  }
+  //console.log(expenditures);
+  $('#OvLineGraph').empty();
+  var plot2 = $.jqplot('OvLineGraph', [expenditures, incomes, savings], { 
+    title:'Test', 
+    seriesDefaults: {
+      showMarker:false
+    }, 
+    series:[
+    {
+      label: 'Expenditures'
+    },
+    {
+      yaxis:'y2axis',
+      label: 'Incomes'
+    }, 
+    {
+      yaxis:'y3axis',
+      label: 'Savings'
+    }
+    ], 
+    cursor: {
+      show: true,
+      tooltipLocation:'sw', 
+      zoom:true
+    }, 
+    axesDefaults:{useSeriesColor: true}, 
+    axes:{
+      xaxis:{
+        renderer: $.jqplot.DateAxisRenderer,
+        min:'March 1, 2013 00:00:00', 
+        tickInterval: '1 month', 
+        tickOptions:{formatString:'%Y/%#m/%#d'}
+      }, 
+      yaxis:{},  
+      y2axis:{
+        numberTicks:9, 
+        tickOptions:{showGridline:false}
+      }, 
+      y3axis:{}
+    }, 
+    legend: {
+          show: true
+    }
+  });
+}

@@ -2,7 +2,8 @@
 
 function getPieData() {
 
-	$array = array('memberId'=> 1);
+	$id = $_SESSION["member"]->getValue("id");
+	$array = array('memberId'=> $id);
 	$expenditure = new Expenditure($array);
 	$categories = $expenditure->listCategories($expenditure->getValueEncoded("memberId"));
 

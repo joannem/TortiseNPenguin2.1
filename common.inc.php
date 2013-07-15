@@ -29,13 +29,17 @@ function displayPageHeader() {
 	<body>
 		<!-- Standard Header for Every Page -->
 		<div class="row-fluid">
-			<div class="span4">
+			<div class="span5">
 				<a href="UserHome.php">
 					<img src="img/Logo.png" class="img-rounded">
 				</a>
-				<p><i>This web page is still under development.</i></p> <!--Blank paragraph-->
 			</div>
-			<div class="span4 offset4">
+			<div class="span5 alert">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<strong>Notice:</strong> This web page is still under development.
+			</div>
+			
+			<div class="span2 pull-right">
 				<a href="logout.php"><h4 class="text-right">Sign Out</h4></a>
 			</div>
 		</div>
