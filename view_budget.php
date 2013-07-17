@@ -27,7 +27,7 @@ function displayBudget() {
 				<th><?php if ($order != "to") { ?>
 					<a href="UserHome.php?view=budget&order=to"><?php } ?>To<?php if($order != "to") {?></a>
 					<?php }?></th>
-				<th>Graph</th>
+				<th>Indicator</th>
 				<th><?php if ($order != "budgetAmt") { ?>
 					<a href="UserHome.php?view=budget&order=budgetAmt"><?php } ?>Budget<?php if($order != "budgetAmt") {?></a>
 					<?php }?></th>

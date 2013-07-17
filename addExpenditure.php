@@ -1,7 +1,6 @@
 <?php
 
 #to add a new expense to the database
-require_once("Expenditure.class.php");
 require_once("common.inc.php");
 
 checkLogin();
@@ -27,7 +26,6 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 	}	?>
 
 		<p>Fields marked with an asterisk (*) are required.</p>
-		<?php# print_r($expenditure->listCategories($id)); ?>
 		<form class="form-horizontal" action="addExpenditure.php" method="post">
 			<div style="width: 50em;">
 				<input type="hidden" name="action" value="add" />
@@ -45,7 +43,10 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 				<div class="control-group">
 					<label class="control-label<?php validateField("cost", $missingFields)?>" for="cost">Cost *:</label>
 					<div class="controls">
-						<input type="text" name="cost" id="cost" value="<?php echo $expenditure->getValueEncoded("cost")?>" />
+						<div class="input-prepend">
+							<span class="add-on">$</span>
+							<input class="span12" type="text" name="cost" id="cost" value="<?php echo $expenditure->getValueEncoded("cost")?>" />
+						</div>
 					</div>
 				</div> <!--End Cost-->
 

@@ -45,7 +45,15 @@ function displayIncome() {
 						}
 					?>
 					<td><?php echo date('d', $date) . ' ' . getMonth(date('m', $date))  . ' ' . date('Y', $date)?></td>
-					<td><?php echo $income->getValueEncoded("type")?></td>
+					<td>
+						<?php $type = $income->getValueEncoded("type");
+							if($type == "monthly") {
+								echo "Monthly";
+							} else {
+								echo "Once-Off";
+							}
+						?>
+					</td>
 					<td><?php  printf("$%.2f", $incomeAmount = floatval($income->getValueEncoded("incomeAmt"))) ?> </td>
 					<td><a href="editIncome.php?incomeId=<?php echo $income->getValueEncoded("incomeId") ?>&amp;start=<?php echo $start ?>&amp; order=<?php echo $order ?>" class="btn btn-small"><i>edit</i></a></td>
 				</tr>

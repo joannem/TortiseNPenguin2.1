@@ -61,7 +61,10 @@ function displayForm($errorMessages, $missingFields, $budget) {
 			<div class="control-group">
 				<label class="control-label<?php validateField("budgetAmt", $missingFields)?>" for="budget">Budget :</label>
 				<div class="controls">
-					<input type="text" name="budgetAmt" id="budgetAmt" value="<?php echo $budget->getValueEncoded("budgetAmt")?>" />
+					<div class="input-prepend">
+						<span class="add-on">$</span>
+						<input class="span12" type="text" name="budgetAmt" id="budgetAmt" value="<?php echo $budget->getValueEncoded("budgetAmt")?>" />
+					</div>
 				</div>
 			</div> <!--end budgetAmt-->
 
@@ -117,11 +120,11 @@ function displayForm($errorMessages, $missingFields, $budget) {
 
 			<!--submission buttons-->
 			<div>
-				<input class="btn btn-primary offset2 span2" type="submit" name="action" id="saveButton" value="Save Changes" style="margin-right: 8px;"/>
-				<input class="btn btn-info span2" type="submit" name="action" id="deleteButton" value="Delete Record"  />
+				<input class="btn btn-primary offset2 span3" type="submit" name="action" id="saveButton" value="Save Changes" style="margin-right: 8px;"/>
+				<input class="btn btn-info span3" type="submit" name="action" id="deleteButton" value="Delete Record"  />
 				<br>
 				<br>
-				<a href="UserHome.php?view=budget&start=<?php echo $start ?>&amp;order=<?php echo $order ?>" class="btn btn-small offset3">Back</a>
+				<a href="UserHome.php?view=budget&start=<?php echo $start ?>&amp;order=<?php echo $order ?>" class="btn btn-small span2 offset4">Back</a>
 			</div>
 
 		</div>

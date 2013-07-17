@@ -86,8 +86,9 @@ function displayFormHeader($title) {
 				ul, li {display: inline;}
 				.error {background: #d33; color: white; padding: 0.2em;}
 			</style>
+			<script type="text/javascript" src="forms.js"></script>
 		</head>
-		<body>
+		<body <?php if ($title = "Edit Income") echo "onload=firstCheck_In()" ?>>
 			<!-- Standard Header for Every Page -->
 			<div class="row-fluid">
 				<div class="span4">
@@ -148,6 +149,7 @@ function displaySideBar() {
 			<tbody>
 				<tr>
 					<td>
+						<b>Statistics for this month... </b><br>
 						<!--find way to make this look 'nicer'-->
 						Total Income: <br>
 						Total Expenditure: <br>

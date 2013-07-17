@@ -23,13 +23,10 @@ function displayOverview_noT() {
 			var expendituresO = <?php getExData() ?>;
 			var incomesO = <?php getInData() ?>;
 			var savingsO = <?php getSavData() ?>;
-			var emptyArr = <?php getEmptyArr() ?>;
-			//document.write("data: <br>");
-			//document.write(data);
 			</script>
 		</div>
 		<div class="span6">
-			<p><b>All exenditures, incomes and savings over time:</b><i>Prob: axes aren't shared, defeats e purpose of plotting on the same axes.</i></p>
+			<p><b>All exenditures, incomes and savings over time:</b></p>
 			<div id="OvLineGraph" style="height: 300px; width: 500px; position: relative;" class="jqplot-target"></div>
 			<br>
 		</div>
@@ -40,7 +37,7 @@ function displayOverview_noT() {
 				<input id="check_In" type="checkbox" name="O_Line" value="Incomes">Incomes<br>
 				<input id="check_Sav" type="checkbox" name="O_Line" value="Savings">Savings<br>
 			</label>
-			<button class="btn btn-info" onclick=processCheck(expendituresO,incomesO,savingsO,emptyArr)>Plot</button>
+			<button class="btn btn-info" onclick=processCheckO()>Plot</button>
 		</div>
 		<br><br>
 		<div class="span9">
@@ -95,10 +92,10 @@ function displayOverview_noT() {
 		<h3>Over Time</h3>	
 			<div class="span6">
 				<p><b>All exenditures, incomes and savings over time:</b></p>
-				<div id="OvLineGraph" style="height: 300px; width: 500px; position: relative;" class="jqplot-target"></div>
+				<div id="CatLineGraph" style="height: 300px; width: 500px; position: relative;" class="jqplot-target"></div>
 				<br>
 			</div>
-			<div style="height: 215px; width: 229px; position: relative;"></div>
+			<div style="height: 100px; width: 229px; position: relative;"></div>
 			<div class="offset1 span3 well" id="Checkboxes">
 				<label class="checkbox">
 					<?php 
@@ -111,15 +108,10 @@ function displayOverview_noT() {
 					var categories = <?php echo json_encode($categories) ?>;
 					//console.log(categories);
 					var categoriesData = <?php getCatData($categories) ?>;
-					console.log("before convert data: ");
-					console.log(categoriesData);
-					/*for (var i = 0; i < categoriesData.length; i++) {
-						convertData(categoriesData[i]);
-					}
-					console.log(categoriesData);*/
+					//console.log("before convert data: ");
+					//console.log(categoriesData);
 				</script>
-				<button class="btn btn-info" onclick=processCheckC(categoriesData,categories,emptyArr)>Plot</button>
-				<button class="btn btn-info" onclick=printData(categoriesData)>Print!</button>
+				<button class="btn btn-info" onclick=processCheckC()>Plot</button>
 			</div>
 		</div>
 	</div><!--End Overtime-->

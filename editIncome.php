@@ -46,11 +46,14 @@ function displayForm($errorMessages, $missingFields, $income) {
 			<input type="hidden" name="start" id="start" value="<?php echo $start ?>" />
 			<input type="hidden" name="order" id="order" value="<?php echo $order ?>" />
 
-				<!--start incomeAmt-->
+			<!--start incomeAmt-->
 			<div class="control-group">
 				<label class="control-label<?php validateField("incomeAmt", $missingFields)?>" for="income">Income :</label>
 				<div class="controls">
-					<input type="text" name="incomeAmt" id="incomeAmt" value="<?php echo $income->getValueEncoded("incomeAmt")?>" />
+					<div class="input-prepend">
+						<span class="add-on">$</span>
+						<input class="span12" type="text" name="incomeAmt" id="incomeAmt" value="<?php echo $income->getValueEncoded("incomeAmt")?>" />
+					</div>
 				</div>
 			</div> <!--end incomeAmt-->
 
@@ -88,7 +91,8 @@ function displayForm($errorMessages, $missingFields, $income) {
 						<?php } ?></select>
 					<br>
 					<!--Type: -->
-					<input class="checkbox" type="checkbox" name="type" id="monthly" value="monthly" <?php setChecked($income, "type", "monthly")?> style="margin-right: 5px;">Update this amount on this day every month
+					<input class="checkbox" type="checkbox" name="type" id="monthly" value="monthly" <?php setChecked($income, "type", "monthly")?> style="margin-right: 5px;" onclick=CheckedSetSelect_In(document.getElementById("startDay").selectedIndex)>Update this amount on this day every month <br>
+					<i>*Not selecting this option would mean that this income is once-off.</i>
 				</div>
 			</div> <!--End startDate-->
 
@@ -104,7 +108,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 						?>
 
 					<!--specify date-->
-					<input class="radio" type="radio" name="endDate" id="endDate" value="specified" <?php if($prevEDate != "0") { echo ' checked="checked"';}?>>			
+					<input class="radio" type="radio" name="endDate" id="endDate_S" value="specified" <?php if($prevEDate != "0") { echo ' checked="checked"';}?> onclick=SetSelect_In(false)>			
 					Specify Date: <br>
 					<div> <!--Wraps around Select options-->
 						<!--Day-->
@@ -131,7 +135,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 					</div> <!--end of select options-->
 
 					<!--no specific date-->
-					<input class="radio" type="radio" name="endDate" id="endDate" value="unspecified" <?php setChecked($income, "endDate", "0")?>>Till this moment	
+					<input class="radio" type="radio" name="endDate" id="endDate_US" value="unspecified" <?php setChecked($income, "endDate", "0")?> onclick=SetSelect_In(true)>Till this moment	
 				</div>
 			</div> <!--end endDate-->
 
@@ -141,11 +145,11 @@ function displayForm($errorMessages, $missingFields, $income) {
 
 			<!--submission buttons-->
 			<div>
-				<input class="btn btn-primary offset2 span2" type="submit" name="action" id="saveButton" value="Save Changes" style="margin-right: 8px;"/>
-				<input class="btn btn-info span2" type="submit" name="action" id="deleteButton" value="Delete Record" />
+				<input class="btn btn-primary offset2 span3" type="submit" name="action" id="saveButton" value="Save Changes" style="margin-right: 8px;"/>
+				<input class="btn btn-info span3" type="submit" name="action" id="deleteButton" value="Delete Record" />
 				<br>
 				<br>
-				<a href="UserHome.php?view=income&start=<?php echo $start ?>&amp;order=<?php echo $order ?>" class="btn btn-small offset3">Back</a>
+				<a href="UserHome.php?view=income&start=<?php echo $start ?>&amp;order=<?php echo $order ?>" class="btn btn-small span2 offset4">Back</a>
 			</div>
 
 		</div>

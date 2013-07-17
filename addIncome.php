@@ -38,6 +38,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 	<p>Please fill up all fields. <br>
 		<i style="color: orange;">If income is once-off, do not check 'Update this amount on this day every month', select 'specify date' under 'To: ' section, and pick the same date as 'From: '.</i>
 	</p>
+	<br>
 	<form class="form-horizontal" action="addIncome.php" method="post">
 		<div style="width: 50em;">
 			<input type="hidden" name="action" value="add" />
@@ -48,7 +49,10 @@ function displayForm($errorMessages, $missingFields, $income) {
 			<div class="control-group">
 				<label class="control-label<?php validateField("incomeAmt", $missingFields)?>" for="income">Income :</label>
 				<div class="controls">
-					<input type="text" name="incomeAmt" id="incomeAmt" value="<?php echo $income->getValueEncoded("incomeAmt")?>" />
+					<div class="input-prepend">
+						<span class="add-on">$</span>
+						<input class="span12" type="text" name="incomeAmt" id="incomeAmt" value="<?php echo $income->getValueEncoded("incomeAmt")?>" />
+					</div>
 				</div>
 			</div> <!--end incomeAmt-->
 
@@ -81,7 +85,8 @@ function displayForm($errorMessages, $missingFields, $income) {
 					</div><!--End of select options-->
 					<br>
 					<!--Type: -->
-					<input class="checkbox" type="checkbox" name="type" id="monthly" value="monthly" <?php setChecked($income, "type", "monthly")?> style="margin-right: 5px;">Update this amount on this day every month
+					<input class="checkbox" type="checkbox" name="type" id="monthly" value="monthly" <?php setChecked($income, "type", "monthly")?> style="margin-right: 5px;" onclick=CheckedSetSelect_In(document.getElementById("startDay").selectedIndex)>Update this amount on this day every month <br>
+					<i>*Not selecting this option would mean that this income is once-off.</i>
 				</div>
 			</div> <!--End startDate-->
 
@@ -90,25 +95,25 @@ function displayForm($errorMessages, $missingFields, $income) {
 				<label class="control-label<?php validateField("endDate", $missingFields)?>" for="endDate">To :</label>
 				<div class="controls">
 					<!--specify date-->
-					<input class="radio" type="radio" name="endDate" id="endDate" value="specified" <?php setArrChecked($_POST, "endDate", "specified")?>>			
+					<input class="radio" type="radio" name="endDate" id="endDate_S" value="specified" <?php setArrChecked($_POST, "endDate", "specified")?> onclick=SetSelect_In(false) disabled>			
 					Specify Date: <br>
 					<div> <!--Wraps around Select options-->
 						<!--Day-->
-						<select class="span2" name="endDay" id="endDay" size="1">
+						<select class="span2" name="endDay" id="endDay" size="1" disabled>
 							<?php for ($day=1; $day<32 ; $day++) { ?>
 							<option value="<?php echo $day ?>"<?php setArrSelected ($_POST, "endDay", $day) ?>><?php echo $day ?></option>
-							<?php } ?></select>-->
+							<?php } ?></select>
 
 						<!--Month-->
 						<?php $months = array(1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 5 => 'May', 6 => 'Jun', 7 => 'Jul', 8 => 'Aug', 9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Dec'); ?>
-						<select class="span2" name="endMonth" id="endMonth" size="1">
+						<select class="span2" name="endMonth" id="endMonth" size="1" disabled>
 							<?php
 							foreach ($months as $num => $name) { ?>
 							<option value="<?php echo $num ?>"<?php setArrSelected ($_POST, "endMonth", $num) ?>><?php echo $name ?></option>
 							<?php } ?></select>
 
 						<!--Year-->
-						<select class="span2" name="endYear" id="endYear" size="1">
+						<select class="span2" name="endYear" id="endYear" size="1" disabled>
 							<?php 
 							$thisYear = date('Y');
 							for ($year=$thisYear; $year > $thisYear-50 ; $year--) { ?>
@@ -117,7 +122,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 					</div> <!--end of select options-->
 
 					<!--no specific date-->
-					<input class="radio" type="radio" name="endDate" id="endDate" value="unspecified" <?php setArrChecked($_POST, "endDate", "unspecified")?>>Till this moment	
+					<input class="radio" type="radio" name="endDate" id="endDate_US" value="unspecified" <?php setArrChecked($_POST, "endDate", "unspecified")?> onclick=SetSelect_In(true) disabled>Till this moment	
 				</div>
 			</div> <!--end endDate-->
 
@@ -167,7 +172,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 			"startDate"=>isset($_POST["startDay"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $startDate) : "",
 			"endDate"=>isset($_POST["endDate"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $endDate) : ""
 			));
-			print_r($income); #for debugging
+			//print_r($income); #for debugging
 
 		/***Handling mistakes***/
 		foreach ($requiredFields as $requiredField) {
@@ -182,7 +187,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 		#Fields not filled in
 		if($missingFields) {
 			#print_r($income);
-			print_r($missingFields);
+			//print_r($missingFields);
 			$errorMessages[] = '<p class="error">There were some missing fields in the form you submitted. Please complete the fields highlighted below and click Send Details to resent the form.</p>';
 		}
 

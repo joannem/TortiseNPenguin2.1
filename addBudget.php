@@ -55,7 +55,10 @@ function displayForm($errorMessages, $missingFields, $budget) {
 			<div class="control-group">
 				<label class="control-label<?php validateField("budgetAmt", $missingFields)?>" for="budget">Budget :</label>
 				<div class="controls">
-					<input type="text" name="budgetAmt" id="budgetAmt" value="<?php echo $budget->getValueEncoded("budgetAmt")?>" />
+					<div class="input-prepend">
+						<span class="add-on">$</span>
+						<input class="span12" type="text" name="budgetAmt" id="budgetAmt" value="<?php echo $budget->getValueEncoded("budgetAmt")?>" />
+					</div>
 				</div>
 			</div> <!--end budgetAmt-->
 
