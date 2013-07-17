@@ -66,7 +66,7 @@ function displayForm($errorMessages, $missingFields, $budget) {
 			<div class="control-group">
 				<label class="control-label<?php validateField("period", $missingFields)?>">Period :</label>
 				<div class="controls">
-					<input class="radio" type="radio" name="period" id="choosePeriod" value="choose" <?php setChecked($budget, "period", "choose")?>>
+					<input class="radio" type="radio" name="period" id="choosePeriod" value="choose" <?php setChecked($budget, "period", "choose")?> onclick=SetSelect_Bud(false)>
 					Select period to track budget for (dates must be different): <br>
 				<div> <!--wraps around select options-->
 					<?php $months = array(1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr', 5 => 'May', 6 => 'Jun', 7 => 'Jul', 8 => 'Aug', 9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Dec');
@@ -103,7 +103,7 @@ function displayForm($errorMessages, $missingFields, $budget) {
 						<?php } ?></select> <br>
 				</div> <!--end of select options-->
 				<!--forever-->
-				<input class="radio" type="radio" name="period" id="foreverPeriod" value="forever" <?php setChecked($budget, "period", "forever")?>>
+				<input class="radio" type="radio" name="period" id="foreverPeriod" value="forever" <?php setChecked($budget, "period", "forever")?> onclick=SetSelect_Bud(true)>
 						Forever	
 				</div>
 			</div> <!--end Period-->

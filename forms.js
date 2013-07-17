@@ -50,3 +50,27 @@ function CheckedSetSelect_In(option) {
 		document.getElementById("endYear").disabled = true;
 	}
 }
+
+//For budget
+
+function SetSelect_Bud(status) {
+	document.getElementById("startMonth").disabled = status;
+	document.getElementById("startYear").disabled = status;
+	document.getElementById("endMonth").disabled = status;
+	document.getElementById("endYear").disabled = status;
+}
+
+function firstCheck_Bud() {
+	console.log("in firstCheck_Bud()");
+	if(document.getElementById("choosePeriod").checked) {
+		document.getElementById("startMonth").disabled = false;
+		document.getElementById("startYear").disabled = false;
+		document.getElementById("endMonth").disabled = false;
+		document.getElementById("endYear").disabled = false;
+	} else {
+		document.getElementById("startMonth").disabled = true;
+		document.getElementById("startYear").disabled = true;
+		document.getElementById("endMonth").disabled = true;
+		document.getElementById("endYear").disabled = true;
+	}
+}

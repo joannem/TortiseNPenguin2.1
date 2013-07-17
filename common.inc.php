@@ -88,7 +88,14 @@ function displayFormHeader($title) {
 			</style>
 			<script type="text/javascript" src="forms.js"></script>
 		</head>
-		<body <?php if ($title = "Edit Income") echo "onload=firstCheck_In()" ?>>
+		 <?php 
+		 if ($title == "Edit Income") 
+		 	echo "<body onload=firstCheck_In()>";
+		 elseif($title == "Edit Budget")
+		 	echo "<body onload=firstCheck_Bud()>";
+		 else
+		 	echo "<body>";
+		 ?>
 			<!-- Standard Header for Every Page -->
 			<div class="row-fluid">
 				<div class="span4">
