@@ -96,14 +96,6 @@ class Member extends DataObject {
 		return ($this->data["gender"] == "f") ? "Female" : "Male";
 	}
 
-	public function getFavoriteGenreString() {
-		return ($this->_genres[$this->data["favoriteGenre"]]);
-	}
-
-	public function getGenres() {
-		return $this->_genres;
-	}
-
 	#adds a new member to the table
 	public function insert() {
 		$conn = parent::connect();
@@ -114,9 +106,8 @@ class Member extends DataObject {
 			lastName,
 			joinDate,
 			gender,
-			favoriteGenre,
-			emailAddress,
-			otherInterests
+			emailAddress
+
 		) VALUES (
 			:username,
 			password(:password),
@@ -124,9 +115,7 @@ class Member extends DataObject {
 			:lastName,
 			:joinDate,
 			:gender,
-			:favoriteGenre,
-			:emailAddress,
-			:otherInterests
+			:emailAddress
 		)";
 		
 		try {
@@ -137,9 +126,7 @@ class Member extends DataObject {
 			$st->bindValue(":lastName", $this->data["lastName"], PDO::PARAM_STR);
 			$st->bindValue(":joinDate", $this->data["joinDate"], PDO::PARAM_STR);
 			$st->bindValue(":gender", $this->data["gender"], PDO::PARAM_STR);
-			$st->bindValue(":favoriteGenre", $this->data["favoriteGenre"], PDO::PARAM_STR);
 			$st->bindValue(":emailAddress", $this->data["emailAddress"], PDO::PARAM_STR);
-			$st->bindValue(":otherInterests", $this->data["otherInterests"], PDO::PARAM_STR);
 			$st->execute();
 			parent::disconnect($conn);
 		} catch (PDOException $e) {

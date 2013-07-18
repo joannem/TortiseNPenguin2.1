@@ -110,6 +110,7 @@ function displayFormHeader($title) {
 				<?php
 }
 
+//header for those who aren't signed in
 function displayLogHeader($title) {
 	?>
 
@@ -144,6 +145,22 @@ function displayLogHeader($title) {
 }
 
 function displaySideBar() {
+	$id = $_SESSION["member"]->getValueEncoded("id");
+	$array = array('memberId'=> $id);
+	$expenditure = new Expenditure($array);
+	$income = new Income($array);
+
+	$from = date('Y-m') . "-01";
+	$nxtMonth = date('m') + 1;
+	$to = date('Y') . "-" . $nxtMonth . "-01";
+
+	$MthExpenditure = $expenditure->getExpenditures_P($from, $to);
+	$MthIncome = $income->getTotalIncome($from, $to);
+	$MthLeft = $MthIncome - $MthExpenditure;
+	$MthExpenditure = sprintf("$%.2f", $MthExpenditure);
+	$MthIncome = sprintf("$%.2f", $MthIncome);
+	$MthLeft = sprintf("$%.2f", $MthLeft);
+	
 	?>
 	<div class="span3"> <!-- Sidebar-->
 		<!--Sidebar content-->
@@ -157,15 +174,16 @@ function displaySideBar() {
 				<tr>
 					<td>
 						<b>Statistics for this month... </b><br>
-						<!--find way to make this look 'nicer'-->
-						Total Income: <br>
-						Total Expenditure: <br>
-						Total Savings:
+						<dl class="dl-horizontal">
+							<dt>Total Income: </dt><dd><?php echo $MthIncome ?></dd>
+							<dt>Total Expenditure: </dt><dd><?php echo $MthExpenditure ?></dd>
+							<dt>Total Savings: </dt><dd><?php echo $MthLeft ?></dd>
+						<dl></dl>
 
 						<hr class="soften">
 
 						<h5>Welcome, <?php print_r($_SESSION["member"]->getValue("username")) ?></h5>
-						<p>Click <a href="view_member.php?memberId=<?php echo $_SESSION["member"]->getValueEncoded("id")?>">here</a> to view account details</p>
+						<p>Click <a href="view_member.php?memberId=<?php echo $id ?>">here</a> to view account details</p>
 					</td>
 				</tr>
 
@@ -278,24 +296,26 @@ function displayPageFooter() { ?>
 	<br>
 	<br>
 	<br>
+	<div class="span12">
 	<p><?php #for checking :D
 		#$url = parse_url($_SERVER['REQUEST_URI']);
 		#echo $url["path"];
-		?></p>
-		<p style="color: blue;">Here's a dummy footer: <br>
-			"Portions of this code from Beginning PHP 5.3, ISBN: 978-0-470-41396-8, copyright John Wiley & Sons, Inc.: 2000-2013, by Matt Doyle, published under the Wrox imprint are used by permission of John Wiley & Sons, Inc All rights reserved. This book and the Wrox code are available for purchase or download at www.wrox.com" <br>
-		</p>
-		<p style="color: blue;">
-			<i>Yes, we also used bootstrap for css hah.</i>
-		</p>
-		<p style="color: grey;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-				<!--<script src="http://code.jquery.com/jquery.min.js"></script>-->
-				<script src="js/bootstrap.min.js"></script>
+	?></p>
+	<p style="color: blue;">Here's a dummy footer: <br>
+		"Portions of this code from Beginning PHP 5.3, ISBN: 978-0-470-41396-8, copyright John Wiley & Sons, Inc.: 2000-2013, by Matt Doyle, published under the Wrox imprint are used by permission of John Wiley & Sons, Inc All rights reserved. This book and the Wrox code are available for purchase or download at www.wrox.com" <br>
+	</p>
+	<p style="color: blue;">
+		<i>Yes, we also used bootstrap for css hah.</i>
+	</p>
+	<p style="color: grey;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	</div>
+	<!--<script src="http://code.jquery.com/jquery.min.js"></script>-->
+	<script src="js/bootstrap.min.js"></script>
 	</body>
 </html>
 <?php

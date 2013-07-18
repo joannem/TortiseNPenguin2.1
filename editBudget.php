@@ -23,8 +23,8 @@ if(isset($_POST["action"]) and $_POST["action"] == "Save Changes") {
 function displayForm($errorMessages, $missingFields, $budget) {
 	displayFormHeader("Edit Budget");
 	echo '<h2>Editing budget for: ' . $budget->getValueEncoded("category") . '</h2>';
-	echo '<h4><i>From '  . $budget->getValueEncoded("startMonth") . $budget->getValueEncoded("endYear") .
-			' to ' . $budget->getValueEncoded("endMonth") . $budget->getValueEncoded("endYear") . '.</i></h4>';
+	echo '<h4><i>From '  . getMonth($budget->getValueEncoded("startMonth")) . $budget->getValueEncoded("endYear") .
+			' to ' . getMonth($budget->getValueEncoded("endMonth")) . $budget->getValueEncoded("endYear") . '.</i></h4>';
 
 	if($errorMessages) {
 		foreach ($errorMessages as $errorMessage) {
