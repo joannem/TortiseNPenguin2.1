@@ -215,7 +215,7 @@ function displaySuccess() {
 	?>
 	<h2>Changes saved</h2>
 	<p>Your changes have been saved.</p>
-	<p><a href="UserHome.php?view=budget&start=<?php echo $start ?>&amp;order=<?php echo $order ?>">Return to Expenditures' list</a></p>
+	<p><a href="UserHome.php?view=budget&start=<?php echo $start ?>&amp;order=<?php echo $order ?>">Return to Budgets' list</a></p>
 
 	<?php 
 	displayPageFooter();

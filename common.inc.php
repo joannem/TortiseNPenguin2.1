@@ -14,17 +14,23 @@ function displayPageHeader() {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
 		<!--jplot-->
 		<link rel="stylesheet" type="text/css" href="graphs-jqplot/jqplot/jquery.jqplot.min.css" />
-		<script src="graphs-jqplot/jqplot/jquery.min.js" ></script>
-		<script src="graphs-jqplot/jqplot/jquery.jqplot.min.js" ></script>
+		<script src="graphs/jqplot/jquery.min.js" ></script>
+		<script src="graphs/jqplot/jquery.jqplot.min.js" ></script>
+		<!--pie-->
 		<script src="graphs-jqplot/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
-		<script type="text/javascript" src="graphs-jqplot/jqplot/plugins/jqplot.cursor.min.js"></script>
-		<script type="text/javascript" src="graphs-jqplot/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+		<!--line-->
+		<script type="text/javascript" src="graphs/jqplot/plugins/jqplot.cursor.min.js"></script>
+		<script type="text/javascript" src="graphs/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+		<!--bar-->
+		<script type="text/javascript" src="graphs/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+		<script type="text/javascript" src="graphs/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+		<!--js-->
 		<script src="graphs/line.js" ></script>
 		<script src="graphs/pie.js" ></script>
-
-		
+		<script src="graphs/hori-bar.js"></script>
 	</head>
 	<body>
 		<!-- Standard Header for Every Page -->
