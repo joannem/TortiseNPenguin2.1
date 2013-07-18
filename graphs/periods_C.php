@@ -22,7 +22,7 @@ function getCatData($categories) {
 			$to = date('Y-m-d', $j+$A_day);
 			$date = date('Y/m/d h:m:s', $j);
 			$ex = $expenditure->getExpenditures_PnC($categories[$i], $from, $to);
-			$idv_DataC[] = array($date, $ex);
+			$idv_DataC[] = array($date, $ex-0.0);
 			
 		}
 		$ex_DataC[] = $idv_DataC;

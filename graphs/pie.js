@@ -10,11 +10,7 @@ function processSelect(option) {
   else
     drawChart2(data4);
 }
-function addstuff(stuff) {
-  var add = "stuff added: "
-  add += stuff;
-  return add;
-}
+
 
 function processSelectAJAX(from, to) {
 //console.log(from);
@@ -23,7 +19,7 @@ function processSelectAJAX(from, to) {
     xmlhttp.onreadystatechange=function() {
       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
         var php_data = xmlhttp.responseText;
-        console.log(php_data);
+        //console.log(php_data);
         var js_data = $.parseJSON(php_data);
         //console.log(js_data);
         drawChart(js_data);
@@ -31,7 +27,7 @@ function processSelectAJAX(from, to) {
      }
    }
    xmlhttp.open("GET","graphs/categories.php?from="+from+"&to="+to,true);
-   console.log("just sent request!");
+ //  console.log("just sent request!");
    xmlhttp.send();
 }
 
@@ -67,7 +63,7 @@ function drawChart(data) {
     //data.push((("No Data Found", 100)));
     var data = [[["No Data Found", 100]]]
   }
-console.log("in drawChart()");
+//console.log("in drawChart()");
   for(i=0; i<data[0].length; i++) {
    data[0][i][1] = parseFloat(data[0][i][1]);
   }
