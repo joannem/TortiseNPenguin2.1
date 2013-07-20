@@ -30,7 +30,6 @@ function CheckedSetSelect_In(option) {
 	console.log(option);
 	if (document.getElementById("monthly").checked) {
 		document.getElementById("endDay").options[option].selected = true;
-		document.getElementById("startDay").disabled = true;
 		//radio options
 		document.getElementById("endDate_S").disabled = false;
 		document.getElementById("endDate_US").disabled = false;
@@ -40,7 +39,6 @@ function CheckedSetSelect_In(option) {
 		document.getElementById("endYear").disabled = false;
 	}
 	else {
-		document.getElementById("startDay").disabled = false;
 		//radio options
 		document.getElementById("endDate_S").disabled = true;
 		document.getElementById("endDate_US").disabled = true;

@@ -192,7 +192,7 @@ function saveBudget() {
 			displayForm($errorMessages, $missingFields, $budget);
 		} else {
 			$budget->update();
-			displaySuccess();
+			goBacke_Bud();
 		}
 }
 
@@ -204,19 +204,21 @@ function deleteBudget() {
 		));
 	#print_r($budget);
 	$budget->delete();
-	displaySuccess();
+	goBacke_Bud();
 }
 
-function displaySuccess() {
+function goBacke_Bud() {
 	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
 	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";
-
-	displayFormHeader("Changes Saved");
 	?>
-	<h2>Changes saved</h2>
-	<p>Your changes have been saved.</p>
-	<p><a href="UserHome.php?view=budget&start=<?php echo $start ?>&amp;order=<?php echo $order ?>">Return to Budgets' list</a></p>
+
+	<script type="text/javascript">
+		var start = <?php echo $start ?> + '';
+		var order = <?php echo json_encode($order) ?>;
+		console.log(start);
+		console.log(order);
+		window.location.replace('UserHome.php?view=budget&start=' + start + '&amp;order=' + order + '&success=success')
+	</script>
 
 	<?php 
-	displayPageFooter();
 }

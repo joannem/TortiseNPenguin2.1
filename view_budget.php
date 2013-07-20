@@ -5,16 +5,18 @@ require_once("config.php");
 require_once("Budget.class.php");
 require_once("Expenditure.class.php");
 
-function displayBudget() {
+function displayBudget($success) {
 
 	$start = isset($_GET["start"]) ? (int)$_GET["start"] : 0;
 	$order = isset($_GET["order"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["order"]) : "category";
 	$id = $_SESSION["member"]->getValue("id");
 	list($budgets, $totalRows) = Budget::getBudgets($start, PAGE_SIZE, $order, $id);
+	//print_r($success);
+	if($success == "success") {
+		displaySuccess();
+	} ?>
+	<h2>Budget   <a class="btn btn-small" href="addBudget.php?start=<?php echo $start ?>&amp; order=<?php echo $order ?>"><i class="icon-plus"></i>Add</a></h2>
 
-	?>
-	<!--target="_blank" add next time-->
-	<h2>Budget   <a class="btn btn-small" href="addBudget.php"><i class="icon-plus"></i>Add</a></h2>
 	<table class="table table-condensed">
 		<thead>
 			<tr>

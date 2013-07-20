@@ -4,16 +4,18 @@ require_once("common.inc.php");
 require_once("config.php");
 require_once("Income.class.php"); 
 
-function displayIncome() {
+function displayIncome($success) {
 
 	$start = isset($_GET["start"]) ? (int)$_GET["start"] : 0;
 	$order = isset($_GET["order"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["order"]) : "startDate";
 	$id = $_SESSION["member"]->getValue("id");
 	list($incomes, $totalRows) = Income::getIncomes($start, PAGE_SIZE, $order, $id);
-
+	if($success == "success") {
+		displaySuccess();
+	} 
 	?>
 
-	<h2>Income   <a class="btn btn-small" href="addIncome.php"><i class="icon-plus"></i>Add</a></h2>
+	<h2>Income   <a class="btn btn-small" href="addIncome.php?start=<?php echo $start ?>&amp; order=<?php echo $order ?>"><i class="icon-plus"></i>Add</a></h2>
 	<table class="table table-condensed">
 		<thead>
 			<tr>

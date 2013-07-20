@@ -200,6 +200,14 @@ function displaySideBar() {
 	<?php 
 }
 
+function displaySuccess() {
+	echo "
+		<div class=\"span12 alert\">
+			<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+			<strong>Success:</strong> Your response has been submitted. Click \"edit\" to make changes.
+		</div> ";
+}
+
 #converts a given integer into Months in readable form
 function getMonth($value) {
 	switch ($value) {

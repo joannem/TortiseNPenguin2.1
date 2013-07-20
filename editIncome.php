@@ -164,6 +164,9 @@ function saveBudget() {
 		$missingFields = array();
 		$errorMessages = array();
 
+		#fill in for 'type' if it's emtpy
+		$_POST["type"] = isset($_POST["type"]) ? $_POST["type"] : "onceOff";
+
 		#convert radio options into dates
 		if(isset($_POST["endDate"]) && ($_POST["endDate"] == "unspecified")) {
 			$endDate = 0;
@@ -171,6 +174,7 @@ function saveBudget() {
 			if($_POST["type"] == "monthly") {
 				$endDate = "'" . $_POST["endYear"] . "-" . $_POST["endMonth"] . "-" . $_POST["endDay"] . "'";
 			} else {
+				// if income is once-off, system will automatically set endDate to the value of startDate
 				$endDate = "'" . $_POST["startYear"] . "-" . $_POST["startMonth"] . "-" . $_POST["startDay"] . "'";
 			}
 		}
@@ -192,9 +196,6 @@ function saveBudget() {
 			if(!$income->getValue($requiredField)) {
 				$missingFields[] = $requiredField;
 			}
-		}
-		if(!isset($_POST["endDate"])) {
-			$missingFields[] = "endDate";
 		}
 
 		#Fields not filled in
@@ -222,7 +223,7 @@ function saveBudget() {
 			displayForm($errorMessages, $missingFields, $income);
 		} else {
 			$income->insert();
-			displayThanks();
+			goBacke_In();
 		}
 	}
 
@@ -232,19 +233,19 @@ function deleteBudget() {
 		));
 	#print_r($income);
 	$income->delete();
-	displaySuccess();
+	goBacke_In();
 }
 
-function displaySuccess() {
+function goBacke_In() {
 	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
 	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "purchaseDate";
 
 	displayFormHeader("Changes Saved");
 	?>
-	<h2>Changes saved</h2>
-	<p>Your changes have been saved.</p>
-	<p><a href="UserHome.php?view=income&start=<?php echo $start ?>&amp;order=<?php echo $order ?>">Return to Incomes' list</a></p>
-
+	<script type="text/javascript">
+	var start = <?php echo $start ?> + '';
+	var order = <?php echo json_encode($order) ?>;
+	window.location.replace('UserHome.php?view=income&start=' + start + '&amp;order=' + order + '&success=success')
+	</script>
 	<?php 
-	displayPageFooter();
 }

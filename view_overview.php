@@ -45,14 +45,14 @@ function displayOverview() {
 						<input id="check_In" type="checkbox" name="O_Line" value="Incomes">Incomes<br>
 						<input id="check_Sav" type="checkbox" name="O_Line" value="Savings">Savings<br>
 					</label>
+					<script type="text/javascript">processCheckO()</script>
 					<button class="btn btn-info" onclick=processCheckO()>Plot</button>
 				</div>
 				<br><br>
 				<div class="span9">
 					<p><b>All expenditures by category:</b></p>
-					<button class="btn btn-info" onclick=drawChart_O(dataOL)>Show Pie Chart</button>
-					<!--<script type="text/javascript"> drawChart(data); </script>-->
 					<div id="OvPieChartDivId" style="margin-top:20px; margin-left:20px; width:600px; height:300px;"></div>
+					<script type="text/javascript">drawChart_O(dataOL)</script>
 				</div>
 			</div> <!--End Overall-->
 

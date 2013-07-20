@@ -7,6 +7,7 @@ require_once("view_income.php");
 
 displayPageHeader();
 $view = isset($_GET["view"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["view"]) : "overview";
+$success = isset($_GET["success"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["success"]) : "";
 ?>
 
 <div class="container-fluid">
@@ -24,14 +25,14 @@ $view = isset($_GET["view"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["view"]) : 
 			</ul>
 
 			<?php 
-			if($view == "expenditure") {
-				displayExpenditures();
-			} elseif($view == "overview") {
+			if($view == "overview") {
 				displayOverview();
+			} elseif($view == "expenditure") {	
+				displayExpenditures($success);
 			} elseif($view == "budget") {
-				displayBudget();
+				displayBudget($success);
 			} elseif ($view == "income") {
-				displayIncome();
+				displayIncome($success);
 			} else {
 				echo 'error: file not found.';
 			}

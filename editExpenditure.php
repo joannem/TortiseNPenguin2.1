@@ -190,7 +190,7 @@ function saveItem() {
 		#echo 'Value of $expenditure before update:';
 		#print_r($expenditure);
 		$expenditure->update();
-		displaySuccess();
+		goBacke_Ex();
 	}
 
 }
@@ -202,19 +202,19 @@ function deleteItem() {
 		));
 	#print_r($expenditure);
 	$expenditure->delete();
-	displaySuccess();
+	goBacke_Ex();
 }
 
-function displaySuccess() {
+function goBacke_Ex() {
 	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
 	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "purchaseDate";
 
-	displayFormHeader("Changes Saved");
 	?>
-	<h2>Changes saved</h2>
-	<p>Your changes have been saved.</p>
-	<p><a href="UserHome.php?view=expenditure&start=<?php echo $start ?>&amp;order=<?php echo $order ?>">Return to Expenditures' list</a></p>
+	<script type="text/javascript">
+	var start = <?php echo $start ?> + '';
+	var order = <?php echo json_encode($order) ?>;
+	window.location.replace('UserHome.php?view=expenditure&start=' + start + '&amp;order=' + order + '&success=success')
+	</script>
 
 	<?php 
-	displayPageFooter();
 }

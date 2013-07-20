@@ -30,7 +30,10 @@ function displayForm($errorMessages, $missingFields, $budget) {
 		foreach ($errorMessages as $errorMessage) {
 			echo $errorMessage;
 		}
-	}	?>
+	}
+	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
+	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
+	?>
 
 	<p>Please fill up all fields.</p>
 	<form class="form-horizontal" action="addBudget.php" method="post">
@@ -118,7 +121,7 @@ function displayForm($errorMessages, $missingFields, $budget) {
 				<input class="btn btn-info span2" type="reset" name="resetButton" id="resetButton" value="Reset Form"  />
 				<br>
 				<br>
-				<a href="UserHome.php?view=budget" class="btn btn-small offset3">Back</a>
+				<a href="UserHome.php?view=budget&start=<?php echo $start ?>&amp;order=<?php echo $order ?>" class="btn btn-small offset3">Back</a>
 			</div>
 
 		</div>
@@ -184,18 +187,20 @@ function displayForm($errorMessages, $missingFields, $budget) {
 		if($errorMessages) {
 			displayForm($errorMessages, $missingFields, $budget);
 		} else {
-			$budget->insert();
-			displayThanks();
+			$newBudget = $budget->insert();
+			goBacka_Bud($newBudget);
+			#cannot get budget Id, find a way to get max id from budget which of this member (prevent conflict w other members)
 		}
 	}
 
-		function displayThanks() {
-			displayFormHeader("Add Budget-Success");
-			?>
-			<p>Response Submitted. :)</p>
-			<div class="offset3 span 6">
-				<a href="UserHome.php?view=budget" class="btn">Return to Home</a>
-			</div>
-			<?php
-			displayPageFooter();
-		} ?>
+	function goBacka_Bud($budget) { 
+		$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
+		$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
+		?>
+		<script type="text/javascript">
+		var start = <?php echo $start ?> + '';
+		var order = <?php echo json_encode($order) ?>;
+		window.location.replace('UserHome.php?view=budget&start=' + start + '&amp;order=' + order + '&success=success')
+		</script>
+		<?php
+	} ?>

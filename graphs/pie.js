@@ -54,7 +54,8 @@ function drawChart_O(data) {
     },
     legend: { show:true, location: 'e' }
   };
-   
+  
+  $('#OvPieChartDivId').empty();
   $.jqplot('OvPieChartDivId', data, options);
 }
 function drawChart(data) {

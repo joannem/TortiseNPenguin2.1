@@ -4,16 +4,18 @@ require_once("common.inc.php");
 require_once("config.php");
 require_once("Expenditure.class.php");
 
-function displayExpenditures() {
+function displayExpenditures($success) {
 	
 	$start = isset($_GET["start"]) ? (int)$_GET["start"] : 0;
 	$order = isset($_GET["order"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["order"]) : "purchaseDate";
 	$id = $_SESSION["member"]->getValue("id");
 	list($expenditures, $totalRows) = Expenditure::getExpenditures($start, PAGE_SIZE, $order, $id);
-
+	if($success == "success") {
+		displaySuccess();
+	} 
 	?>
 	<!--target="_blank" add next time-->
-	<h2>Expenditures  <a class="btn btn-small" href="addExpenditure.php"><i class="icon-plus"></i>Add</a></h2>
+	<h2>Expenditures  <a class="btn btn-small" href="addExpenditure.php?start=<?php echo $start ?>&amp; order=<?php echo $order ?>"><i class="icon-plus"></i>Add</a></h2>
 
 	<div class="span12"><p><i>Input filter functions here:====================================</i></p></div>
 	<!--Search Button-->

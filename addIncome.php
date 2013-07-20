@@ -29,6 +29,8 @@ function displayForm($errorMessages, $missingFields, $income) {
 			echo $errorMessage;
 		}
 	}
+	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
+	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
 	$prevIncomeDate = Income::getPrev($id); //fetches the latest date income was recorded
 	$prevDay = date('d', $prevIncomeDate);
 	$prevMonth = date('m', $prevIncomeDate);
@@ -43,7 +45,6 @@ function displayForm($errorMessages, $missingFields, $income) {
 		<div style="width: 50em;">
 			<input type="hidden" name="action" value="add" />
 			<input type="hidden" name="memberId" value="<?php echo $id ?>" />
-			<input type="hidden" name="type" value="onceOff" />
 
 			<!--start incomeAmt-->
 			<div class="control-group">
@@ -151,6 +152,9 @@ function displayForm($errorMessages, $missingFields, $income) {
 		$missingFields = array();
 		$errorMessages = array();
 
+		#fill in for 'type' if it's emtpy
+		$_POST["type"] = isset($_POST["type"]) ? $_POST["type"] : "onceOff";
+		#print_r($_POST);
 		#convert radio and checkbox options into dates
 		if(isset($_POST["endDate"]) && ($_POST["endDate"] == "unspecified")) {
 			$endDate = 0;
@@ -158,6 +162,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 			if($_POST["type"] == "monthly") {
 				$endDate = "'" . $_POST["endYear"] . "-" . $_POST["endMonth"] . "-" . $_POST["startDay"] . "'";
 			} else {
+				// if income is once-off, system will automatically set endDate to the value of startDate
 				$endDate = "'" . $_POST["startYear"] . "-" . $_POST["startMonth"] . "-" . $_POST["startDay"] . "'";
 			}
 		}
@@ -179,9 +184,6 @@ function displayForm($errorMessages, $missingFields, $income) {
 			if(!$income->getValue($requiredField)) {
 				$missingFields[] = $requiredField;
 			}
-		}
-		if(!isset($_POST["endDate"])) {
-			$missingFields[] = "endDate";
 		}
 
 		#Fields not filled in
@@ -210,18 +212,18 @@ function displayForm($errorMessages, $missingFields, $income) {
 			displayForm($errorMessages, $missingFields, $income);
 		} else {
 			$income->insert();
-			displayThanks();
+			goBacka_In();
 		}
 	}
 
-		function displayThanks() {
-			displayFormHeader("Add Income-Success");
+		function goBacka_In() {
+			$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
+			$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
 			?>
-			<p>Response Submitted. :)</p>
-			<p style="color: orange;"><i>If the previous record for income is set to end at 'Till this moment', please edit it to end on the date this current addition started, if necessary.</i></p>
-			<div class="offset3 span 6">
-				<a href="UserHome.php?view=income" class="btn">Return to Home</a>
-			</div>
+			<script type="text/javascript">
+			var start = <?php echo $start ?> + '';
+			var order = <?php echo json_encode($order) ?>;
+			window.location.replace('UserHome.php?view=income&start=' + start + '&amp;order=' + order + '&success=success')
+			</script>
 			<?php
-			displayPageFooter();
 		} ?>

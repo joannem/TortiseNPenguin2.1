@@ -170,18 +170,19 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 				displayForm($errorMessages, $missingFields, $expenditure);
 			} else {
 				$expenditure->insert();
-				displayThanks();
+				goBacka_Ex();
 			}
 		}
 
-		function displayThanks() {
-			displayFormHeader("Add Expenditure-Success");
+		function goBacka_Ex() {
+			$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
+			$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "purchaseDate";	
 			?>
-			<p>Response Submitted. :)</p>
-			<div class="offset3 span 6">
-				<a href="UserHome.php?view=expenditure" class="btn">Return to Home</a>
-				<!-- add the order memorizing thing later-->
-			</div>
+			<script type="text/javascript">
+			var start = <?php echo $start ?> + '';
+			var order = <?php echo json_encode($order) ?>;
+			window.location.replace('UserHome.php?view=expenditure&start=' + start + '&amp;order=' + order + '&success=success')
+			</script>
 			<?php
-			displayPageFooter();
+
 		} ?>

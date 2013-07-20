@@ -148,6 +148,7 @@ public function insert() {
 		parent::disconnect($conn);
 		die("Query failed: " . $e->getMessage());
 	}
+	return $this;
 }
 
 public function update() {
