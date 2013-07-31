@@ -257,7 +257,7 @@ public function insert() {
 }
 
 public function update() {
-	$conn = parent::connect(); #not sure about the memberId part
+	$conn = parent::connect(); 
 	$sql = "UPDATE " . TBL_EXPENDITURES . " SET
 		memberId = :memberId, 
 		purchaseDate = :purchaseDate,
@@ -285,6 +285,26 @@ public function update() {
 		parent::disconnect($conn);
 		die("Query failed: " . $e->getMessage());
 	}
+}
+
+public static function updateCat($id, $oldCat, $newCat) {
+	$conn = parent::connect();
+	$sql = "UPDATE " . TBL_EXPENDITURES . " SET
+		category = :Ncategory
+		WHERE category = :Ocategory AND memberId=:memberId";
+	try {
+		$st = $conn->prepare($sql);
+		$st->bindValue(":Ncategory", $newCat, PDO::PARAM_STR);
+		$st->bindValue(":Ocategory", $oldCat, PDO::PARAM_STR);
+		$st->bindValue(":memberId", $id, PDO::PARAM_INT);
+		$st->execute();
+		parent::disconnect($conn);
+		
+	} catch (PDOException $e) {
+		parent::disconnect($conn);
+		die("Query failed: " . $e->getMessage());
+	}
+
 }
 
 public function delete() {

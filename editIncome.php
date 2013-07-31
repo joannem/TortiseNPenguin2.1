@@ -21,7 +21,8 @@ if(isset($_POST["action"]) and $_POST["action"] == "Save Changes") {
 
 function displayForm($errorMessages, $missingFields, $income) {
 	displayFormHeader("Edit Income");
-	?>
+	?>	
+	<div class="offset1 span10">
 	<h2>Edit income:</h2>
 <?php 
 	if($errorMessages) {

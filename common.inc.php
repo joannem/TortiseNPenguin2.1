@@ -15,7 +15,7 @@ function displayPageHeader() {
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
-		<!--jplot-->
+		<!--jqplot-->
 		<link rel="stylesheet" type="text/css" href="graphs-jqplot/jqplot/jquery.jqplot.min.css" />
 		<script src="graphs/jqplot/jquery.min.js" ></script>
 		<script src="graphs/jqplot/jquery.jqplot.min.js" ></script>
@@ -31,6 +31,7 @@ function displayPageHeader() {
 		<script src="graphs/line.js" ></script>
 		<script src="graphs/pie.js" ></script>
 		<script src="graphs/hori-bar.js"></script>
+		<script type="text/javascript" src="forms.js"></script>
 	</head>
 	<body>
 		<!-- Standard Header for Every Page -->
@@ -49,29 +50,7 @@ function displayPageHeader() {
 				<a href="logout.php"><h4 class="text-right">Sign Out</h4></a>
 			</div>
 		</div>
-
-		<!-- Links to About, Contact... etc. INSERT LINKS ONCE PAGES ARE DONE-->
-		<?php $url = parse_url($_SERVER['REQUEST_URI']); ?>
-		<div class="row-fluid">
-			<div class="span4 offset8">
-				<ul class="nav nav-pills">
-					<li <?php if($url["path"] == "/TortiseNPenguin/UserHome.php") { echo 'class="active"'; } ?>><a href="UserHome.php">Home</a></li>
-					<li <?php if($url["path"] == "/TortiseNPenguin/AboutUsPage.php") { echo 'class="active"'; } ?>><a href="AboutUsPage.php">About Us</a></li>
-					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Contact Us<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<!-- links -->
-							<li <?php if($url["path"] == "/TortiseNPenguin/ContactUsPage.php") { echo 'class="active"'; } ?>><a href="ContactUsPage.php">email</li>
-							<li <?php if($url["path"] == "/TortiseNPenguin/LocateUsPage.php") { echo 'class="active"'; } ?>><a href="#">locate us</li>
-							<li class="divider"></li>
-							<li <?php if($url["path"] == "/TortiseNPenguin/blank.php") { echo 'class="active"'; } ?>><a href="#">Separated link</a></li>
-						</ul>
-					</li>
-					<li <?php if($url["path"] == "/TortiseNPenguin/HelpPage.php") { echo 'class="active"'; } ?>><a href="HelpPage.php">Help</a></li>
-				</ul>
-			</div>
-		</div>
-
+		<br>
 		<?php
 	}
 
@@ -112,7 +91,7 @@ function displayFormHeader($title) {
 				</div>
 			</div>
 			<div class="row-fluid">
-				<div class="offset1 span10">
+				
 				<?php
 }
 
@@ -189,7 +168,23 @@ function displaySideBar() {
 						<hr class="soften">
 
 						<h5>Welcome, <?php print_r($_SESSION["member"]->getValue("username")) ?></h5>
-						<p>Click <a href="view_member.php?memberId=<?php echo $id ?>">here</a> to view account details</p>
+						<p>Click <a href="UserHome.php?view=profile&memberId=<?php echo $id ?>">here</a> to view account details</p>
+
+						<hr class="soften">
+
+						<!-- Links to About, Contact... etc. INSERT LINKS ONCE PAGES ARE DONE-->
+						<?php $url = parse_url($_SERVER['REQUEST_URI']); ?>
+						<div class="row-fluid">
+							<div class="span12">
+								<ul class="nav nav-list">
+									<li class="nav-header">Miscellaneous Links</li>
+									<li <?php if($url["path"] == "/tortiseNpenguin2/UserHome.php") { echo 'class="active"'; } ?>><a href="UserHome.php">Finance Tracker</a></li>
+									<li <?php if($url["path"] == "/tortiseNpenguin2/AboutUsPage.php") { echo 'class="active"'; } ?>><a href="AboutUsPage.php">About Us</a></li>
+									<li <?php if($url["path"] == "/tortiseNpenguin2/ContactUsPage.php") { echo 'class="active"'; } ?>><a data href="ContactUsPage.php">Contact Us</a></li>
+									<li <?php if($url["path"] == "/tortiseNpenguin2/HelpPage.php") { echo 'class="active"'; } ?>><a href="HelpPage.php">Help</a></li>
+								</ul>
+							</div>
+						</div>
 					</td>
 				</tr>
 

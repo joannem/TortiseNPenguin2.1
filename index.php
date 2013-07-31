@@ -11,5 +11,9 @@
 		<p>Register with us today!</p>
 		<a class="btn-primary btn" href="registration.php">Register Now!</a>
 		<p><i>Insert carousell and information here</i></p>
+
+		<br>
+		<br>
+		<button class="offset2 btn btn-primary btn-small" onclick=alert("jsworks!")>Test js!</button>
 	</body>
 </html>

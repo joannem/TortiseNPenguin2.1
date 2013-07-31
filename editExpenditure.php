@@ -21,6 +21,8 @@ if(isset($_POST["action"]) and $_POST["action"] == "Save Changes") {
 
 function displayForm($errorMessages, $missingFields, $expenditure) {
 	displayFormHeader("Edit Item");
+	?> 
+	<div class="offset1 span10"> <?php 
 	echo '<h2>Editing item: ' . $expenditure->getValueEncoded("item") . '</h2>';
 
 	if($errorMessages) {
@@ -33,6 +35,7 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "purchaseDate";
 	$id = $_SESSION["member"]->getValue("id");
 	?>
+
 	<p>Fields marked with an asterisk (*) are required.</p>
 	<form class="form-horizontal" action="editExpenditure.php" method="post">
 		<div style="width: 50em;">

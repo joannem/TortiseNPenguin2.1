@@ -21,6 +21,7 @@ function displayForm($errorMessages, $missingFields, $income) {
 	$id = $_SESSION["member"]->getValue("id");
 	?>
 
+	<div class="offset1 span10">
 	<h2>Add income:</h2>
 	<?php 
 
@@ -36,7 +37,6 @@ function displayForm($errorMessages, $missingFields, $income) {
 	$prevMonth = date('m', $prevIncomeDate);
 	$prevYear= date('Y', $prevIncomeDate);
 	?>
-
 	<p>Please fill up all fields. <br>
 		<i style="color: orange;">If income is once-off, do not check 'Update this amount on this day every month', select 'specify date' under 'To: ' section, and pick the same date as 'From: '.</i>
 	</p>

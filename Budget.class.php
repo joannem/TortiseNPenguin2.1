@@ -186,6 +186,26 @@ public function update() {
 	}
 }
 
+public static function updateCat($id, $oldCat, $newCat) {
+	$conn = parent::connect();
+	$sql = "UPDATE " . TBL_BUDGET . " SET
+		category = :Ncategory
+		WHERE category = :Ocategory AND memberId=:memberId";
+	try {
+		$st = $conn->prepare($sql);
+		$st->bindValue(":Ncategory", $newCat, PDO::PARAM_STR);
+		$st->bindValue(":Ocategory", $oldCat, PDO::PARAM_STR);
+		$st->bindValue(":memberId", $id, PDO::PARAM_INT);
+		$st->execute();
+		parent::disconnect($conn);
+		
+	} catch (PDOException $e) {
+		parent::disconnect($conn);
+		die("Query failed: " . $e->getMessage());
+	}
+
+}
+
 public function delete() {
 	$conn = parent::connect();
 	$sql = "DELETE FROM " . TBL_BUDGET . " WHERE budgetId = :budgetId";

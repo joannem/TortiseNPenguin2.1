@@ -22,7 +22,7 @@ function displayForm($errorMessages, $missingFields, $budget) {
 	displayFormHeader("Add Budget");
 	$id = $_SESSION["member"]->getValue("id");
 	?>
-
+	<div class="offset1 span10">
 	<h2>Add budget:</h2>
 	<?php 
 
@@ -34,7 +34,6 @@ function displayForm($errorMessages, $missingFields, $budget) {
 	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
 	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
 	?>
-
 	<p>Please fill up all fields.</p>
 	<form class="form-horizontal" action="addBudget.php" method="post">
 		<div style="width: 50em;">

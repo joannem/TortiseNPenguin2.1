@@ -15,7 +15,7 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 	displayFormHeader("Add Expenditure");
 	$id = $_SESSION["member"]->getValue("id");
 	?>
-
+	<div class="offset1 span10">
 	<h2>Add expenditure:</h2>
 	<?php 
 

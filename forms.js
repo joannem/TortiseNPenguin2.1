@@ -72,3 +72,14 @@ function firstCheck_Bud() {
 		document.getElementById("endYear").disabled = true;
 	}
 }
+
+//For editing categories
+function edit(cat){
+	//console.log("in hideEdit");
+	editBtnId = "edit_" + cat;
+	textId = "cat_" + cat;
+	document.getElementById(textId).disabled = false;
+	document.getElementById(editBtnId).disabled = true;
+	document.getElementById("save").disabled = false;
+
+}
