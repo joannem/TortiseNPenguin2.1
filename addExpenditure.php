@@ -14,6 +14,12 @@ if(isset($_POST["action"]) and $_POST["action"] == "add") {
 function displayForm($errorMessages, $missingFields, $expenditure) {
 	displayFormHeader("Add Expenditure");
 	$id = $_SESSION["member"]->getValue("id");
+
+	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
+	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
+	$currDay = date('d');
+	$currMonth = date('m');
+	$currYear= date('Y');
 	?>
 	<div class="offset1 span10">
 	<h2>Add expenditure:</h2>
@@ -85,7 +91,7 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 						<!--Day-->
 						<select class="span2" name="purchaseDay" id="purchaseDay" size="1">
 							<?php for ($day=1; $day<32 ; $day++) { ?>
-							<option value="<?php echo $day ?>"<?php setArrSelected ($_POST, "purchaseDay", $day) ?>><?php echo $day ?></option>
+							<option value="<?php echo $day ?>"<?php if(isset($_POST) && $day == $currDay) { echo ' selected="selected"';} else {setArrSelected ($_POST, "purchaseDay", $day);} ?>><?php echo $day ?></option>
 							<?php } ?></select>
 
 						<!--Month-->
@@ -94,7 +100,7 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 						<select class="span2" name="purchaseMonth" id="purchaseMonth" size="1">
 							<?php
 							foreach ($months as $num => $name) { ?>
-							<option value="<?php echo $num ?>"<?php setArrSelected($_POST, "purchaseMonth", $num)?>><?php echo $name ?></option>
+							<option value="<?php echo $num ?>"<?php if(isset($_POST) && $num == $currMonth) { echo ' selected="selected"';} else {setArrSelected ($_POST, "purchaseMonth", $num);} ?>><?php echo $name ?></option>
 						<?php } ?></select>
 
 						<!--Year-->
@@ -102,7 +108,7 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 							<?php 
 							$thisYear = date('Y');
 							for ($year=$thisYear; $year > $thisYear-50 ; $year--) { ?>
-							<option value="<?php echo $year ?>"<?php setArrSelected ($_POST, "purchaseYear", $year) ?>><?php echo $year ?></option>
+							<option value="<?php echo $year ?>"<?php if(isset($_POST) && $year == $currYear) { echo ' selected="selected"';} else { setArrSelected ($_POST, "purchaseYear", $year); } ?>><?php echo $year ?></option>
 							<?php } ?></select>
 					</div>
 				</div> <!--End date purchased-->
@@ -112,7 +118,7 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 					<input class="btn btn-info span2" type="reset" name="resetButton" id="resetButton" value="Reset Form" />
 					<br>
 					<br>
-					<a href="UserHome.php?view=expenditure" class="btn btn-small offset3">Back</a>
+					<a href="UserHome.php?view=expenditure&start=<?php echo $start ?>&amp;order=<?php echo $order ?>" class="btn btn-small offset3">Back</a>
 				</div>
 
 			</div>
@@ -138,10 +144,10 @@ function displayForm($errorMessages, $missingFields, $expenditure) {
 			}
 
 			$expenditure = new Expenditure(array(
-				"item"=>isset($_POST["item"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["item"]) : "",
+				"item"=>isset($_POST["item"]) ? preg_replace("/[^ \-\_a-zA-Z0-9]/", "", $_POST["item"]) : "",
 				"cost"=>isset($_POST["cost"]) ? preg_replace("/[^\'\.\-_a-zA-Z0-9]/", "", $_POST["cost"]) : "",
 				"description"=>isset($_POST["description"]) ? preg_replace("/[^ \'\,\.\-a-zA-Z0-9']/", "", $_POST["description"]) : "",
-				"category"=>isset($category) ? preg_replace("/[^a-zA-Z]/", "", $category) : "",
+				"category"=>isset($category) ? preg_replace("/[^ a-zA-Z0-9]/", "", $category) : "",
 				"purchaseDate"=>isset($date) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $date) : "",
 				"memberId"=>isset($_POST["memberId"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["memberId"]) : ""
 				));

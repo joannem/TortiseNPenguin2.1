@@ -87,7 +87,7 @@ function saveItem() {
 	$memberId = isset($_GET["memberId"]) ? (int)$_GET["memberId"] : 0;
 	//echo $memberId;
 	foreach ($_POST as $oldCat => $newCat) {
-		//echo "old: " . $oldCat . "new: " . $newCat . "<br>";
+		$newCat = isset($newCat) ? preg_replace("/[^ a-zA-Z0-9]/", "", $newCat) : "";
 		Expenditure::updateCat($memberId, $oldCat, $newCat);
 		Budget::updateCat($memberId, $oldCat, $newCat);
 	}

@@ -98,7 +98,7 @@ function displayOverview() {
 				<div class="span12">
 					<h3>Over Time</h3>	
 					<div class="span6">
-						<p><b>All exenditures, incomes and savings over time:</b></p>
+						<p><b>All exenditures over time:</b></p>
 						<div id="CatLineGraph" style="height: 300px; width: 500px; position: relative;" class="jqplot-target"></div>
 						<br>
 					</div>

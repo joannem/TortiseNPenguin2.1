@@ -33,6 +33,8 @@ function displayForm($errorMessages, $missingFields, $budget) {
 	}
 	$start = isset($_REQUEST["start"]) ? (int)$_REQUEST["start"] : 0;
 	$order = isset($_REQUEST["order"]) ? preg_replace("/[^ a-zA-Z]/", "", $_REQUEST["order"]) : "category";	
+	$currMonth = date('m');
+	$currYear= date('Y');
 	?>
 	<p>Please fill up all fields.</p>
 	<form class="form-horizontal" action="addBudget.php" method="post">
@@ -80,14 +82,14 @@ function displayForm($errorMessages, $missingFields, $budget) {
 					<select class="span2" name="startMonth" id="startMonth" size="1" style="margin: 4px 5px 3px 33px;">
 						<?php
 						foreach ($months as $num => $name) { ?>
-						<option value="<?php echo $num ?>"<?php setSelected($budget, "startMonth", $num)?>><?php echo $name ?></option>
+						<option value="<?php echo $num ?>"<?php if(isset($budget) && $num == $currMonth) { echo ' selected="selected"';} else {setSelected($budget, "startMonth", $num);}?>><?php echo $name ?></option>
 						<?php } ?></select> 
 
 					<select class="span2" name="startYear" id="startYear" size="1" style="margin: 4px 5px 3px 5px;">
 						<?php 
 						$thisYear = date('Y');
 						for ($year=$thisYear; $year > $thisYear-50 ; $year--) { ?>
-						<option value="<?php echo $year ?>"<?php setSelected ($budget, "startYear", $year) ?>><?php echo $year ?></option>
+						<option value="<?php echo $year ?>"<?php if(isset($budget) && $year == $currYear) { echo ' selected="selected"';} else {setSelected ($budget, "startYear", $year);} ?>><?php echo $year ?></option>
 						<?php } ?></select> <br>
 
 					<!--to:-->	
@@ -95,13 +97,13 @@ function displayForm($errorMessages, $missingFields, $budget) {
 					<select class="span2" name="endMonth" id="endMonth" size="1" style="margin: 4px 5px 3px 8px;">
 						<?php
 						foreach ($months as $num => $name) { ?>
-						<option value="<?php echo $num ?>"<?php setSelected($budget, "endMonth", $num)?>><?php echo $name ?></option>
+						<option value="<?php echo $num ?>"<?php if(isset($budget) && $num == $currMonth) { echo ' selected="selected"';} else {setSelected($budget, "endMonth", $num);}?>><?php echo $name ?></option>
 						<?php } ?></select>
 					
 					<select class="span2" name="endYear" id="endYear" size="1" style="margin: 4px 5px 3px 5px;">
 						<?php 
 						for ($year=$thisYear; $year > $thisYear-50 ; $year--) { ?>
-						<option value="<?php echo $year ?>"<?php setSelected ($budget, "endYear", $year) ?>><?php echo $year ?></option>
+						<option value="<?php echo $year ?>"<?php if(isset($budget) && $year == $currYear) { echo ' selected="selected"';} else {setSelected ($budget, "endYear", $year);} ?>><?php echo $year ?></option>
 						<?php } ?></select> <br>
 				</div> <!--end of select options-->
 				<!--forever-->

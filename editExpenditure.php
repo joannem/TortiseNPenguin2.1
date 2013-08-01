@@ -151,10 +151,10 @@ function saveItem() {
 	}
 
 	$expenditure = new Expenditure(array(
-		"item"=>isset($_POST["item"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["item"]) : "",
+		"item"=>isset($_POST["item"]) ? preg_replace("/[^ \-\_a-zA-Z0-9]/", "", $_POST["item"]) : "",
 		"cost"=>isset($_POST["cost"]) ? preg_replace("/[^\'\.\-_a-zA-Z0-9]/", "", $_POST["cost"]) : "",
 		"description"=>isset($_POST["description"]) ? preg_replace("/[^ \'\,\.\-a-zA-Z0-9']/", "", $_POST["description"]) : "",
-		"category"=>isset($category) ? preg_replace("/[^a-zA-Z]/", "", $category) : "",
+		"category"=>isset($category) ? preg_replace("/[^ a-zA-Z0-9]/", "", $category) : "",
 		"purchaseDate"=>isset($date) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $date) : "",
 		"memberId"=>isset($_POST["memberId"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["memberId"]) : "",
 		"itemId"=>isset($_POST["itemId"]) ? (int)$_POST["itemId"] : ""

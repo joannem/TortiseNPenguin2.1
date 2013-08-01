@@ -79,9 +79,15 @@ function drawCLine(data, labels){
           renderer: $.jqplot.DateAxisRenderer,
           min:'January 1, 2013 00:00:00', 
           tickInterval: '1 month', 
-          tickOptions:{formatString:'%Y/%#m/%#d'}
+          tickOptions:{
+            formatString:'%Y/%#m/%#d'
+          }
         }, 
-        yaxis:{}, 
+        yaxis:{
+          tickOptions:{
+            formatString: '$%#.2f'
+          }
+        }, 
       }, 
       legend: {
         show: true,
@@ -115,7 +121,11 @@ function drawOLine(data, labels){
         tickInterval: '1 month', 
         tickOptions:{formatString:'%Y/%#m/%#d'}
       }, 
-      yaxis:{},  
+      yaxis:{
+        tickOptions:{
+            formatString: '$%#.2f'
+        }
+      },  
     }, 
     legend: {
           show: true,
