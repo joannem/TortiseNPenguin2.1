@@ -30,7 +30,7 @@ $success = isset($_GET["success"]) ? preg_replace("/[^a-zA-Z]/", "", $_GET["succ
 
 			<?php 
 			if($view == "overview") {
-				displayOverview();
+				displayOverview($success);
 			} elseif($view == "expenditure") {	
 				displayExpenditures($success);
 			} elseif($view == "budget") {

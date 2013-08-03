@@ -85,10 +85,10 @@ function processForm() {
 	}
 }
 
-function displayThanks() {
-	displayPageHeader("Thanks for logging in!", true);
+function displayThanks() { 
 	?>
-	<p>Welcome, you are now logged in.<a href="UserHome.php">Home page</a></p>
-	<?php
-		displayPageFooter();
+	<script type="text/javascript">
+		window.location.replace('UserHome.php?&success=success')
+	</script>
+	<?php 
 } ?>

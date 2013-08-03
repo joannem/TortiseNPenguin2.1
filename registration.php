@@ -20,7 +20,7 @@ function displayForm($errorMessages, $missingFields, $member) {
 	} 	?>	
 			
 	<p>To register, please fill in your details below and click Send Details.</p>
-	<p>Please fill up all fields.</p>
+	<p style="color: red;"><i>Please fill up all fields.</i></p>
 
 	<form class="form-horizontal" action="registration.php" method="post">
 		<div style="width: 50em;">
@@ -85,7 +85,7 @@ function displayForm($errorMessages, $missingFields, $member) {
 			<br>
 
 			<div>
-				<input class="btn btn-primary offset2 span2" type="submit" name="submitButton" id="submitButton" value="Send Details" />
+				<input class="btn btn-primary offset2 span2" type="button" name="submitButton" id="submitButton" value="Send Details" onclick=checkReg() />
 				<input class="btn btn-info span2" type="reset" name="resetButton" id="resetButton" value="ResetForm" style="margin-right: 20px;" />
 			</div>
 

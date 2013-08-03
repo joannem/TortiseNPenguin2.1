@@ -5,11 +5,14 @@ require_once("graphs/categories_O.php");
 require_once("graphs/periods_O.php");
 require_once("graphs/periods_C.php");
 
-function displayOverview() {
+function displayOverview($logSuccess) {
 	$id = $_SESSION["member"]->getValue("id");
 	$array = array('memberId'=> $id);
 	$expenditure = new Expenditure($array);
 	$categories = $expenditure->listCategories($expenditure->getValueEncoded("memberId"));
+	if($logSuccess == "success") {
+		displayLogSuccess();
+	} 
 	?>
 
 	<h2>Overview</h2>

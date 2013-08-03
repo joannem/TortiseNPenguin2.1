@@ -74,6 +74,7 @@ function firstCheck_Bud() {
 }
 
 //For editing categories
+
 function edit(cat){
 	//console.log("in hideEdit");
 	editBtnId = "edit_" + cat;
@@ -82,4 +83,49 @@ function edit(cat){
 	document.getElementById(editBtnId).disabled = true;
 	document.getElementById("save").disabled = false;
 
+}
+
+//For registration
+
+function checkReg(){
+	if(checkFilled()) {
+		alert("Please make sure all fields are filled up.");	
+	}
+	else if(matchPass()) {
+		alert("1st and 2nd passwords are unidentical.")
+	}
+	else {
+		document.getElementById("submitButton").setAttribute('type', 'submit');	
+	}
+
+}
+
+// returns false if all information are filled and true otherwise
+function checkFilled() {
+	if(document.getElementById("username").value == null || document.getElementById("password1") == null || document.getElementById("password2") == null || document.getElementById("emailAddress") == null || document.getElementById("firstName") == null || document.getElementById("lastName") == null || !(checkGender())) {
+		console.log("username: " + document.getElementById("username").value + "\n");
+		console.log("password1: " + document.getElementById("password1").value + "\n");
+		console.log("password2: " + document.getElementById("password2").value + "\n");
+		console.log("emailAddress: " + document.getElementById("emailAddress").value + "\n");
+		console.log("firstName: " + document.getElementById("firstName").value + "\n");
+		console.log("lastName: " + document.getElementById("lastName").value + "\n");
+		return true;
+	} else {
+		return false;
+	}
+		
+}
+// returns true if gender is checked
+function checkGender() {
+	if(document.getElementById("genderMale").checked || document.getElementById("genderFemale").checked)
+		return true;
+	else
+		return false;
+}
+// returns true if 1st and 2nd passwords are unidentical
+function matchPass() {
+	if(document.getElementById("password1").value != document.getElementById("password2").value)
+		return true;
+	else
+		return false;
 }

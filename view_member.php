@@ -65,8 +65,8 @@ function displayProfilePage() {
 						<?php 
 						foreach ($categories as $category) { ?>
 							<tr>
-								<td><input type="text" name="<?php echo $category ?>" id="cat_<?php echo $category ?>" value="<?php echo $category ?>" disabled/></td>
-								<td><input type="button" class="btn btn-small" id="edit_<?php echo $category ?>" onclick=edit("<?php echo $category ?>") type="button" value="edit"></input></td>
+								<td><input type="text" name="<?php echo $category ?>" id="cat_<?php echo preg_replace("/[ ]/", "_", $category) ?>" value="<?php echo $category ?>" disabled/></td>
+								<td><input type="button" class="btn btn-small" id="edit_<?php echo preg_replace("/[ ]/", "_", $category) ?>" onclick=edit("<?php echo preg_replace("/[ ]/", "_", $category) ?>") type="button" value="edit"></input></td>
 							</tr>
 							<?php 
 						} ?>
@@ -87,7 +87,10 @@ function saveItem() {
 	$memberId = isset($_GET["memberId"]) ? (int)$_GET["memberId"] : 0;
 	//echo $memberId;
 	foreach ($_POST as $oldCat => $newCat) {
-		$newCat = isset($newCat) ? preg_replace("/[^ a-zA-Z0-9]/", "", $newCat) : "";
+		$newCat = isset($newCat) ? preg_replace("/[^ :@#%*a-zA-Z0-9]/", "", $newCat) : "";
+		//echo $newCat . " " . $oldCat;
+		$oldCat = isset($oldCat) ? preg_replace("/[_]/", " ", $oldCat) : "";
+		//echo $newCat . " " . $oldCat;
 		Expenditure::updateCat($memberId, $oldCat, $newCat);
 		Budget::updateCat($memberId, $oldCat, $newCat);
 	}

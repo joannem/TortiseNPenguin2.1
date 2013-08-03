@@ -113,6 +113,7 @@ function displayLogHeader($title) {
 				ul, li {display: inline;}
 				.error {background: #d33; color: white; padding: 0.2em;}
 			</style>
+			<script type="text/javascript" src="forms.js"></script>
 		</head>
 		<body>
 			<!-- Standard Header for Every Page -->
@@ -200,6 +201,14 @@ function displaySuccess() {
 		<div class=\"span12 alert\">
 			<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
 			<strong>Success:</strong> Your response has been submitted. Click \"edit\" to make changes.
+		</div> ";
+}
+
+function displayLogSuccess() {
+	echo "
+		<div class=\"span12 alert\">
+			<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+			<strong>Success:</strong> You are now logged in.
 		</div> ";
 }
 
