@@ -1,9 +1,20 @@
-function drawBar(data1, data2, div_id){
-  var s1 = [data1];
-  var s2 = [data2];
- /* console.log(s1);
-  console.log(s2);
-  console.log(div_id);*/
+function drawBar(budgetAmt, amtSpent, amtLeft, div_id){
+ // console.log(div_id + " " + amtLeft);
+  if(amtLeft < 0) {
+    //console.log(amtLeft);
+    var s1 = [amtLeft*-1]; //negative amount left
+    var s2 = [budgetAmt];
+    var maxVal = amtSpent;
+    var color = ["#ccc", "#4bb2c5"];
+    var stringFormat = '$%#.2f';
+  } else {
+    var s1 = [amtSpent];
+    var s2 = [amtLeft]; //positive amount left
+    var maxVal = budgetAmt;
+    var color = ["#EAA228","#eee"];
+    var stringFormat = '$%#.2f';
+  }
+
   $('#budBars').empty();
   budBars = $.jqplot(div_id, [s1, s2], {
     // Tell the plot to stack the bars.
@@ -29,8 +40,10 @@ function drawBar(data1, data2, div_id){
       xaxis: {
           showTicks: false,
           tickOptions:{
-            showGridline: false
-          }
+            showGridline: false,
+            formatString: stringFormat
+          },
+          max: maxVal
       },
       yaxis: {
         showTicks: false,
@@ -43,7 +56,8 @@ function drawBar(data1, data2, div_id){
     grid: {
       shadow:false,
       drawBorder:false,
-    }
+    },
+    seriesColors: color
   });
 
 }

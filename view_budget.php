@@ -33,8 +33,11 @@ function displayBudget($success) {
 				<th><?php if ($order != "budgetAmt") { ?>
 					<a href="UserHome.php?view=budget&order=budgetAmt"><?php } ?>Budget<?php if($order != "budgetAmt") {?></a>
 					<?php }?></th>
+					<th><?php if ($order != "amtSpent") { ?>
+					<a href="UserHome.php?view=budget&order=budgetAmt"><?php } ?>Spent<?php if($order != "amtSpent") {?></a>
+					<?php }?></th>
 				<th><?php if ($order != "amtLeft") { ?>
-					<a href="UserHome.php?view=budget&order=budgetAmt"><?php } ?>Amount Left<?php if($order != "amtLeft") {?></a>
+					<a href="UserHome.php?view=budget&order=budgetAmt"><?php } ?>Amt Left<?php if($order != "amtLeft") {?></a>
 					<?php }?></th> <!--FIX THIS ONE, needs to be sorted using javascript-->
 				<th>Edit</th>
 			</tr>
@@ -57,11 +60,13 @@ function displayBudget($success) {
 							var chart_id = "" + <?php echo json_encode($chart_id )?>;
 							var budgetAmt = <?php echo $budgetAmt ?>;
 							var amtSpent = <?php echo $amtSpent ?>;				
+							var amtLeft = <?php echo $budgetAmt-$amtSpent ?>;
 						</script>
 						<div id="<?php echo $chart_id ?>" style="height: 50px; width: 450px; position: relative;" class="jqplot-target"></div>
-						<script type="text/javascript">drawBar(amtSpent,budgetAmt,chart_id);</script>
+						<script type="text/javascript">drawBar(budgetAmt,amtSpent,amtLeft,chart_id);</script>
 					</td>
 					<td><div style="height: 15px;"></div><?php  printf("$%.2f", $budgetAmt) ?> </td>
+					<td><div style="height: 15px;"></div><?php  printf("$%.2f", $amtSpent) ?> </td>
 					<td><div style="height: 15px;"></div><?php  printf("$%.2f", $budgetAmt-$amtSpent) ?> </td>
 					<td><div style="height: 15px;"></div><a href="editBudget.php?budgetId=<?php echo $budget->getValueEncoded("budgetId") ?>&amp;start=<?php echo $start ?>&amp; order=<?php echo $order ?>" class="btn btn-small"><i>edit</i></a></td>
 				</tr>

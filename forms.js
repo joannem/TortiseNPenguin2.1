@@ -91,7 +91,7 @@ function checkReg(){
 	if(checkFilled()) {
 		alert("Please make sure all fields are filled up.");	
 	}
-	else if(matchPass()) {
+	if(matchPass()) {
 		alert("1st and 2nd passwords are unidentical.")
 	}
 	else {
