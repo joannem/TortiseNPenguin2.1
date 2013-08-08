@@ -20,19 +20,22 @@ function displayForm($errorMessages, $missingFields, $member) {
 	} 	?>	
 			
 	<p>To register, please fill in your details below and click Send Details.</p>
-	<p style="color: red;"><i>Please fill up all fields.</i></p>
+	<p style="color: #d33;"><i>Please fill up all fields.</i></p>
 
 	<form class="form-horizontal" action="registration.php" method="post">
 		<div style="width: 50em;">
 			<input type="hidden" name="action" value="register" />
 
+			<!-- Username -->
 			<div class="control-group">
 				<label class="control-label<?php validateField("username", $missingFields)?>" for="username" >Choose a username :</label>
 				<div class="controls">
-					<input type="text" name="username" id="username" value="<?php echo $member->getValueEncoded("username")?>" />
+					<input type="text" name="username" id="username" value="<?php echo $member->getValueEncoded("username")?>"  onchange=checkRepeatUserN(); />
+					<span class="help-inline" style="color: #d33;" id="sameUserError"></span>
 				</div>
 			</div>
 
+			<!-- 1st Password -->
 			<div class="control-group">
 				<label class="control-label<?php if ($missingFields) echo ' error'?>" for="password1">Choose a password :</label>
 				<div class="controls">
@@ -40,6 +43,7 @@ function displayForm($errorMessages, $missingFields, $member) {
 				</div>
 			</div>
 
+			<!-- 2nd Password -->
 			<div class="control-group">
 				<label class="control-label<?php if ($missingFields) echo ' error'?>" for="password2">Retype password :</label>
 				<div class="controls">
@@ -47,10 +51,12 @@ function displayForm($errorMessages, $missingFields, $member) {
 				</div>
 			</div>
 
+			<!-- Email -->
 			<div class="control-group">
 				<label class="control-label<?php validateField("emailAddress", $missingFields)?>" for="emailAddress">Email address :</label>
 				<div class="controls">
-					<input type="text" name="emailAddress" id="emailAddress" value="<?php echo $member->getValueEncoded("emailAddress")?>" />
+					<input type="text" name="emailAddress" id="emailAddress" value="<?php echo $member->getValueEncoded("emailAddress")?>"  onchange=checkRepeatEmail(); />
+					<span class="help-inline" style="color: #d33;" id="sameEmailError"></span>
 				</div>
 			</div>
 

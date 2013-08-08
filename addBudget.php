@@ -148,7 +148,7 @@ function displayForm($errorMessages, $missingFields, $budget) {
 		$budget = new Budget(array(
 			"memberId"=>isset($_POST["memberId"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["memberId"]) : "",
 			"budgetAmt"=>isset($_POST["budgetAmt"]) ? preg_replace("/[^\'\.\-_a-zA-Z0-9]/", "", $_POST["budgetAmt"]) : "",
-			"category"=>isset($_POST["category"]) ? preg_replace("/[^a-zA-Z]/", "", $_POST["category"]) : "",
+			"category"=>isset($_POST["category"]) ? preg_replace("/[^ a-zA-Z]/", "", $_POST["category"]) : "",
 			"startMonth"=>isset($_POST["startMonth"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["startMonth"]) : "",
 			"startYear"=>isset($_POST["startYear"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["startYear"]) : "",
 			"endMonth"=>isset($_POST["endMonth"]) ? preg_replace("/[^\-\_a-zA-Z0-9]/", "", $_POST["endMonth"]) : "",

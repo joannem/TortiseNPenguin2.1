@@ -88,16 +88,53 @@ function edit(cat){
 //For registration
 
 function checkReg(){
+	var alertMessages = new array();
+
 	if(checkFilled()) {
-		alert("Please make sure all fields are filled up.");	
+		alertMessagess.push("Please make sure all fields are filled up.");
 	}
 	if(matchPass()) {
-		alert("1st and 2nd passwords are unidentical.")
+		alertMessages.push("1st and 2nd passwords are unidentical.");
+	}
+
+	if(!alertMessages.isEmpty()) {
+		for (var i = 0; i < alertMessages.legnth; i++) {
+			alert(alertMessages[i]);
+		}
 	}
 	else {
 		document.getElementById("submitButton").setAttribute('type', 'submit');	
 	}
 
+}
+
+// reflects if a username already exists in the database
+function checkRepeatUserN() {
+	var xmlhttp = new XMLHttpRequest();
+	//console.log(document.getElementById("username").value);
+    xmlhttp.onreadystatechange=function() {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+        var errMsg = xmlhttp.responseText;
+        //console.log(errMsg);
+       	document.getElementById("sameUserError").innerHTML = errMsg;
+     }
+   }
+   xmlhttp.open("GET","checkRepeat.php?username=" + document.getElementById("username").value,true);
+   xmlhttp.send();
+}
+// reflects if an email already exists in the database
+function checkRepeatEmail() {
+	var xmlhttp = new XMLHttpRequest();
+	//console.log(document.getElementById("emailAddress").value);
+    xmlhttp.onreadystatechange=function() {
+      if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+        var errMsg = xmlhttp.responseText;
+        //console.log(errMsg);
+       	document.getElementById("sameEmailError").innerHTML = errMsg;
+     }
+   }
+   xmlhttp.open("GET","checkRepeat.php?email=" + document.getElementById("emailAddress").value,true);
+   xmlhttp.send();
 }
 
 // returns false if all information are filled and true otherwise
