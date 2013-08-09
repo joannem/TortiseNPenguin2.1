@@ -29,6 +29,7 @@ function displayExpenditures($success) {
 		$TotalExpenditure = Expenditure::getTotalExpenditure($id);
 		if($TotalExpenditure) {
 			printf("$%.2f", floatval($TotalExpenditure));
+			echo "order: " . $order;
 		} else {
 			echo 'cannot display value';
 		} ?></h5>

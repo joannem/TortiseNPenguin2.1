@@ -216,7 +216,7 @@ function goBacke_Ex() {
 	<script type="text/javascript">
 	var start = <?php echo $start ?> + '';
 	var order = <?php echo json_encode($order) ?>;
-	window.location.replace('UserHome.php?view=expenditure&start=' + start + '&amp;order=' + order + '&success=success')
+	window.location.replace('UserHome.php?view=expenditure&start=' + start + '&order=' + order + '&success=success')
 	</script>
 
 	<?php 

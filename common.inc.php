@@ -125,7 +125,64 @@ function displayLogHeader($title) {
 					<p></p> <!--Blank paragraph-->
 				</div>
 			</div>
+			<div class="row-fluid ">
+				<div class="offset1 span10">
+				<?php
+}
+function displayNonMemHeader($title) {
+	?>
+
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<title><?php echo $title ?></title>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<!-- Bootstrap -->
+			<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+			<style type="text/css">
+				label { display: block; float: left; clear: both; text-align: right; margin: 0 0 0 0; width: 40%; }
+				/*input, select, textarea { float: right; margin: 1em 0 0 0 ; width: 57%; }
+				table, th, tr {border:1px solid black;}*/
+				ul, li {display: inline;}
+				.error {background: #d33; color: white; padding: 0.2em;}
+			</style>
+			<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+			<script type="text/javascript" src="js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="forms.js"></script>
+			<script type="text/javascript">
+			$(document).ready(function() {
+				$('.carousel').carousel({
+					interval: 3000
+				})
+			});
+			</script>
+		</head>
+		<body>
+			<!-- Standard Header for Every Page -->
 			<div class="row-fluid">
+				<div class="span4">
+					<a href="index.php">
+						<img src="img/Logo.png" class="img-rounded">
+					</a>
+					<p></p> <!--Blank paragraph-->
+				</div>
+				<div class="span8">
+					<div class="pull-right" style="margin-right: 20px;">
+						<ul class="breadcrumb">
+							<li><a href="#">Home</a> <span class="divider">/</span></li>
+							<li><a href="#">Contact Us</a> <span class="divider">/</span></li>
+							<li><a href="#">About Us</li>
+						</ul>
+						<br>
+						<br>
+						<div style="display: inline;">
+							<a class="btn btn-primary" href="login.php">Login</a>
+							<a class="btn-primary btn" href="registration.php">Sign Up</a>
+						</div>
+					</div>			
+				</div>
+			</div>
+			<div class="row-fluid ">
 				<div class="offset1 span10">
 				<?php
 }
